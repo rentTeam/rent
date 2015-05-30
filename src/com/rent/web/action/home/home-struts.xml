@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" 
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 用户Action -->
+	<package name="user" namespace="/home/user" extends="struts-default,json-default">
+		<action name="*User" class="com.rent.web.action.home.UserAction" method="{1}">
+			<!--json 数据-->
+            <result type="json" name="jsonReturn">
+                <param name="root">jsonData</param>
+            </result>
+		</action>
+	</package>
+	
+	<!-- 车Action -->
+	<package name="car" namespace="/home/car" extends="struts-default,json-default">
+		<action name="*Car" class="com.rent.web.action.home.CarAction" method="{1}">
+			<!--json 数据-->
+            <result type="json" name="jsonReturn">
+                <param name="root">jsonData</param>
+            </result>
+		</action>
+	</package>
+	
+	<!-- 图片Action -->
+	<package name="picture" namespace="/home/picture" extends="struts-default,json-default">
+		<action name="*Picture" class="com.rent.web.action.home.PictureAction" method="{1}">
+			<!--json 数据-->
+            <result type="json" name="jsonReturn">
+                <param name="root">jsonData</param>
+            </result>
+		</action>
+	</package>
+	
+	<!-- 租车信息Action -->
+	<package name="rentInfo" namespace="/home/rent" extends="struts-default,json-default">
+		<action name="*Rent" class="com.rent.web.action.home.RentInfoAction" method="{1}">
+			<!--json 数据-->
+            <result type="json" name="jsonReturn">
+                <param name="root">jsonData</param>
+            </result>
+		</action>
+	</package>
+</struts>    
