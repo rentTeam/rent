@@ -53,6 +53,7 @@ public class CarAction extends BaseAction<Car> implements SessionAware{
 		this.jsonData = jsonData;
 	}
     
+	
 	/**
 	 * 查看车的信息
 	 * @return
