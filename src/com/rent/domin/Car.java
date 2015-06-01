@@ -15,7 +15,7 @@ public class Car {
 	private int timeLimit;
 	private String type;
 	
-	@Column(name = "id")
+	@Column(name = "carId")
     @Id
 	public String getCarId() {
 		return carId;

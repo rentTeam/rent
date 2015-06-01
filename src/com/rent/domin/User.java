@@ -35,7 +35,7 @@ public class User {
 	}
 	
 	@Basic
-	@Column(name="username")
+	@Column(name="userName")
 	public String getUserName() {
 		return userName;
 	}
@@ -99,7 +99,7 @@ public class User {
 	
 	@Basic
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="pictureid")
+	@JoinColumn(name="RoleId")
 	public Role getRoleId() {
 		return roleId;
 	}

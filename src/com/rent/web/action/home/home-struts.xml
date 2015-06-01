@@ -9,6 +9,12 @@
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
+           <!--  跳到首页 -->
+           <result name="index">/index.jsp</result>
+           <!--  跳到注册页面 -->
+           <result name="userRegister">/home/user/register.jsp</result>
+           <!-- 跳到登录页面 -->
+           <result name="userLogin">/home/user/login.jsp</result>
 		</action>
 	</package>
 	
@@ -19,6 +25,8 @@
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
+            <!-- 分页查看车的信息 -->
+            <result>/index.jsp</result>
 		</action>
 	</package>
 	
@@ -29,6 +37,12 @@
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
+            <!-- 跳到身份证图片上传页 -->
+            <result name="identityUpload">/home/picture/identityUpload.jsp</result>
+            <!-- 跳到学生证图片上传页 -->
+            <result name="studentUpload">/home/picture/studentUpload.jsp</result>
+            <!-- 跳到其他图片上传页 -->
+            <result name="otherUpload">/home/picture/otherUpload.jsp</result>
 		</action>
 	</package>
 	
@@ -39,6 +53,10 @@
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
+            <!-- 跳到租车页面 -->
+            <result name="intoRent">/home/rent/rentCar.jsp</result>
+            <!-- 查看租借信息 -->
+            <result name="query">/home/rent/query.jsp</result>
 		</action>
 	</package>
 </struts>    

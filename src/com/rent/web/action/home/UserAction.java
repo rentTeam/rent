@@ -130,6 +130,34 @@ private Map<String, Object> session = null;
 		}
 	}
 	
+	/**
+	 * 系统自动添加的角色属性
+	 */
+	public UserAction(){
+		if(null==roleService.findListByHql("form Role as role")){
+			Role role =new Role();
+			role.setId(1+"");
+			role.setName("administrator");
+			role.setDesc("系统管理员");
+			roleService.save(role);
+			role.setId(2+"");
+			role.setName("manager");
+			role.setDesc("普通管理员");
+			roleService.save(role);
+			role.setId(3+"");
+			role.setName("vip");
+			role.setDesc("vip用户");
+			roleService.save(role);
+			role.setId(4+"");
+			role.setName("rent");
+			role.setDesc("可租借用户");
+			roleService.save(role);
+			role.setId(5+"");
+			role.setName("general");
+			role.setDesc("普通用户");
+			roleService.save(role);
+		}
+	}
 	
 	/**
      * ajax请求 json数据格式规范生成方法

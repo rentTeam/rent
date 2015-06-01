@@ -1,6 +1,7 @@
 package com.rent.domin;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -16,7 +17,7 @@ public class PictureUser {
 	
 	@Id
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="pictureid")
+	@JoinColumn(name="pictureId")
 	public Picture getPictureId() {
 		return pictureId;
 	}
@@ -26,6 +27,7 @@ public class PictureUser {
 	
 	@Id
 	@OneToOne(cascade=CascadeType.ALL)
+	@Column(name="userId")
 	public User getUserId() {
 		return userId;
 	}

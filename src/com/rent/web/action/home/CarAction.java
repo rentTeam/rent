@@ -1,19 +1,36 @@
 package com.rent.web.action.home;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.rent.domin.Car;
+import com.rent.domin.Picture;
+import com.rent.service.CarService;
+import com.rent.service.PictureCarService;
+import com.rent.service.PictureService;
 import com.rent.web.action.BaseAction;
 
 @Controller("Home-CarAction")
 @Scope("prototype")
 public class CarAction extends BaseAction<Car> implements SessionAware{
-private Map<String, Object> session = null;
+	private Map<String, Object> session = null;
+	
+	@Resource
+	private CarService carService;
+	
+	@Resource
+	private PictureService pictureService;
+	
+	@Resource
+	private PictureCarService pictureCarService;
 	
 	//ajax json数据变量
 	private Map<String, Object> jsonData;
@@ -36,6 +53,34 @@ private Map<String, Object> session = null;
 		this.jsonData = jsonData;
 	}
     
+	/**
+	 * 查看车的信息
+	 * @return
+	 */
+	public String query(){
+		List<Picture> plist=new ArrayList<Picture>();
+		List<Picture> plists=new ArrayList<Picture>();
+		List<Car> clist=new ArrayList<Car>();
+		String s=request.getParameter("start");
+		String l=request.getParameter("limit");
+		int start=0;
+		int limit=10;
+		String[] params=null;
+		if(null!=s)start=Integer.parseInt(s);
+		if(null!=l)limit=Integer.parseInt(l);
+		clist=carService.queryForPages("from Car as car", params, start, limit);
+		String hql="from Picture where type='car' and id="
+				+ "(secect pictureId from pictureCar where carId=?)";
+		for(Car car:clist){
+			plist=pictureService.findListByHql(hql, car.getCarId());
+			if(!plist.isEmpty())
+				plists.add(plist.get(0));
+		}
+		request.setAttribute("clist", clist);
+		request.setAttribute("plists", plists);
+		return "query";
+		
+	}
 	/**
 
      * ajax请求 json数据格式规范生成方法

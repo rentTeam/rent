@@ -39,7 +39,7 @@ public class Comment {
 	}
 	@Basic
 	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="userid")
+	@JoinColumn(name="userId")
 	public User getUserId() {
 		return userId;
 	}
@@ -49,7 +49,7 @@ public class Comment {
 	
 	@Basic
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="carid")
+	@JoinColumn(name="carId")
 	public Car getCarId() {
 		return carId;
 	}

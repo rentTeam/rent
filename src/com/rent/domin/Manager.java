@@ -28,7 +28,7 @@ public class Manager {
 		this.id = id;
 	}
 	@Basic
-	@Column(name="username")
+	@Column(name="userName")
 	public String getUserName() {
 		return userName;
 	}
@@ -55,7 +55,7 @@ public class Manager {
 	}
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="roleid")
+	@JoinColumn(name="roleId")
 	public Role getRoleId() {
 		return roleId;
 	}

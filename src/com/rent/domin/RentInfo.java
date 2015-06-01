@@ -1,5 +1,7 @@
 package com.rent.domin;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,8 +17,7 @@ import javax.persistence.OneToOne;
 public class RentInfo {
 	private Car carId;
 	private int timeLimit;
-	private int keepHour;
-	private float count;
+	private Timestamp start;
 	private User userId;
 	
 	@Id
@@ -38,22 +39,14 @@ public class RentInfo {
 	}
 	
 	@Basic
-	@Column(name="keeptime")
-	public int getKeepHour() {
-		return keepHour;
+	@Column(name="start")
+	public Timestamp getStart() {
+		return start;
 	}
-	public void setKeepHour(int keepHour) {
-		this.keepHour = keepHour;
+	public void setStart(Timestamp start) {
+		this.start = start;
 	}
 	
-	@Basic
-	@Column(name="count")
-	public float getCount() {
-		return count;
-	}
-	public void setCount(float count) {
-		this.count = count;
-	}
 	
 	@Id
 	@ManyToOne(cascade=CascadeType.ALL)
@@ -69,8 +62,7 @@ public class RentInfo {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((carId == null) ? 0 : carId.hashCode());
-		result = prime * result + Float.floatToIntBits(count);
-		result = prime * result + keepHour;
+		result = prime * result + ((start == null) ? 0 : start.hashCode());
 		result = prime * result + timeLimit;
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
@@ -89,9 +81,10 @@ public class RentInfo {
 				return false;
 		} else if (!carId.equals(other.carId))
 			return false;
-		if (Float.floatToIntBits(count) != Float.floatToIntBits(other.count))
-			return false;
-		if (keepHour != other.keepHour)
+		if (start == null) {
+			if (other.start != null)
+				return false;
+		} else if (!start.equals(other.start))
 			return false;
 		if (timeLimit != other.timeLimit)
 			return false;
@@ -102,5 +95,6 @@ public class RentInfo {
 			return false;
 		return true;
 	}
+	
 	
 }
