@@ -1,20 +1,33 @@
 package com.rent.web.action.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.rent.domin.Role;
 import com.rent.domin.User;
+import com.rent.service.RoleService;
+import com.rent.service.UserService;
 import com.rent.web.action.BaseAction;
 
 @Controller("Admin-UserAction")
 @Scope("prototype")
 public class UserAction extends BaseAction<User> implements SessionAware{
 	
-private Map<String, Object> session = null;
+	private Map<String, Object> session = null;
+	
+	@Resource
+	private UserService userService;
+	
+	@Resource
+	private RoleService roleService;
 	
 	//ajax json数据变量
 	private Map<String, Object> jsonData;
@@ -37,6 +50,50 @@ private Map<String, Object> session = null;
 		this.jsonData = jsonData;
 	}
     
+	/**
+	 * 查看所有用户的基本信息
+	 * @return
+	 */
+	public String query(){
+		List<User> ulist=new ArrayList<User>();
+		List<Role> rlist=new ArrayList<Role>();
+		String hql="from User as user";
+		int start=0;
+		int limit=10;
+		String[] params=null;
+		if(null!=request.getParameter("start"))
+			start=Integer.parseInt(request.getParameter("start"));
+		if(null!=request.getParameter("limit"))
+			limit=Integer.parseInt(request.getParameter("limit"));
+		ulist=userService.queryForPages(hql, params, start, limit);
+		for(User u:ulist){
+			Role role=roleService.getEntity(Role.class, u.getRoleId().toString());
+			rlist.add(role);
+		}
+		request.setAttribute("ulist", ulist);
+		request.setAttribute("rlist", rlist);
+		return "query";
+	}
+	
+	/**
+	 * 根据角色查询用户
+	 * @return
+	 */
+	public String queryByRole(){
+		List<User> ulist=new ArrayList<User>();
+		String hql="from User where roleId=?";
+		int start=0;
+		int limit=10;
+		String[] params=new String[1];
+		params[0]=request.getParameter("roleId");
+		if(null!=request.getParameter("start"))
+			start=Integer.parseInt(request.getParameter("start"));
+		if(null!=request.getParameter("limit"))
+			limit=Integer.parseInt(request.getParameter("limit"));
+		ulist=userService.queryForPages(hql, params, start, limit);
+		request.setAttribute("ulist", ulist);
+		return "queryByRole";
+	}
 	/**
 
      * ajax请求 json数据格式规范生成方法

@@ -108,7 +108,7 @@ private Map<String, Object> session = null;
 			ajaxReturn("error", "Ã»ÓÐµÇÂ¼!", "session");
 			return "jsonReturn";
 		}else {
-			rent=rentInfoService.findListByHql("from RentInfo where userId=?", session.get("id"));
+			rent=rentInfoService.findListByHql("from RentInfo where userId=? group by start asc", session.get("id"));
 			request.setAttribute("rents", rent);
 			return "query";
 		}

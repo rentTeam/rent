@@ -9,11 +9,11 @@ import java.util.List;
 public interface BaseService<T> {
 
     //ÊµÌå²Ù×÷
-    public void save(T t);
+    public boolean save(T t);
 
-    public void delete(T t);
+    public boolean delete(T t);
 
-    public void update(T t);
+    public boolean update(T t);
 
     public T getEntity(Class t,Serializable id);
 

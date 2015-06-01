@@ -25,18 +25,27 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public  void save(T t) {
-        getBaseDao().saveEntity(t);
+    public  boolean save(T t) {
+        if(getBaseDao().saveEntity(t))
+        	return true;
+        else
+        	return false;
     }
 
     @Override
-    public void delete(T t) {
-        getBaseDao().deleteEntity(t);
+    public boolean delete(T t) {
+        if(getBaseDao().deleteEntity(t))
+        	return true;
+        else
+        	return false;
     }
 
     @Override
-    public void update(T t) {
-        getBaseDao().updateEntity(t);
+    public boolean update(T t) {
+        if(getBaseDao().updateEntity(t))
+        	return true;
+        else
+        	return false;
     }
 
     @Override
