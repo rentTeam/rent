@@ -21,7 +21,7 @@ public class User {
 	private String college;
 	private String email;
 	private String phone;
-	private Role roleId;
+	private RoleInfo roleId;
 	
 	@Id
 	@Column(name = "id")
@@ -100,10 +100,10 @@ public class User {
 	@Basic
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="RoleId")
-	public Role getRoleId() {
+	public RoleInfo getRoleId() {
 		return roleId;
 	}
-	public void setRoleId(Role roleId) {
+	public void setRoleId(RoleInfo roleId) {
 		this.roleId = roleId;
 	}
 	@Override

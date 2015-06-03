@@ -1,5 +1,7 @@
 package com.rent.domin;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +13,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @IdClass(PictureUser.class)
-public class PictureUser {
+public class PictureUser implements Serializable{
 	private Picture pictureId;
 	private User userId;
 	
@@ -27,7 +29,6 @@ public class PictureUser {
 	
 	@Id
 	@OneToOne(cascade=CascadeType.ALL)
-	@Column(name="userId")
 	public User getUserId() {
 		return userId;
 	}

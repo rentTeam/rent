@@ -1,5 +1,6 @@
 package com.rent.domin;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Basic;
@@ -14,7 +15,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @IdClass(RentInfo.class)
-public class RentInfo {
+public class RentInfo implements Serializable{
 	private Car carId;
 	private int timeLimit;
 	private Timestamp start;

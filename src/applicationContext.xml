@@ -16,7 +16,7 @@
 						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
 	
 	<!-- 1:配置注解的自动扫描的范围 -->
-	<context:component-scan base-package="com.rent.dao,com.rent.service,com.rent.*,com.rent.web.action"></context:component-scan>
+	<context:component-scan base-package="com.rent.dao,com.rent.service,com.rent.*,com.rent.domin,com.rent.web.action"></context:component-scan>
 	<!-- 分散配置 -->
 	<context:property-placeholder location="classpath:config.properties"/>
 	<!-- 数据库连接池配置 -->
@@ -42,6 +42,7 @@
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.MySQLDialect
 				</prop>
+				<prop key="show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/db_scatlet</prop>
 				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
@@ -52,13 +53,13 @@
 				<value>com.rent.domin.Car</value>
 				<value>com.rent.domin.Comment</value>
 				<value>com.rent.domin.Label</value>
-				<value>com.rent.domin.Manager</value>
+				<value>com.rent.domin.Manage</value>
 				<value>com.rent.domin.Picture</value>
 				<value>com.rent.domin.PictureCar</value>
 				<value>com.rent.domin.PictureManager</value>
 				<value>com.rent.domin.PictureUser</value>
 				<value>com.rent.domin.RentInfo</value>
-				<value>com.rent.domin.Role</value>
+				<value>com.rent.domin.RoleInfo</value>
 				<value>com.rent.domin.User</value>
 			</list>
 		</property>

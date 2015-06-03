@@ -6,6 +6,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,6 +18,7 @@ public class Picture {
 	private String type;
 	private String url;
 	
+	@Id
 	@Column(name = "id")
     @GenericGenerator(name = "generator", strategy = "uuid2")
 	@GeneratedValue(generator = "generator")

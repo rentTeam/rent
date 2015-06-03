@@ -5,19 +5,21 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class Manager {
+public class Manage {
 	private String id;
 	private String userName;
 	private String password;
 	private	String identity;
-	private Role roleId;
+	private RoleInfo roleId;
 	
+	@Id
 	@Column(name = "id")
     @GenericGenerator(name = "generator", strategy = "uuid2")
 	@GeneratedValue(generator = "generator")
@@ -56,10 +58,10 @@ public class Manager {
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="roleId")
-	public Role getRoleId() {
+	public RoleInfo getRoleId() {
 		return roleId;
 	}
-	public void setRoleId(Role roleId) {
+	public void setRoleId(RoleInfo roleId) {
 		this.roleId = roleId;
 	}
 	@Override
@@ -84,7 +86,7 @@ public class Manager {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Manager other = (Manager) obj;
+		Manage other = (Manage) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -1,7 +1,7 @@
 package com.rent.service;
 
-import com.rent.domin.Role;
+import com.rent.domin.RoleInfo;
 
-public interface RoleService extends BaseService<Role> {
+public interface RoleService extends BaseService<RoleInfo> {
 
 }

@@ -9,7 +9,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.rent.domin.Role;
+import com.rent.domin.RoleInfo;
 import com.rent.domin.User;
 import com.rent.service.RoleService;
 import com.rent.service.UserService;
@@ -17,7 +17,7 @@ import com.rent.web.action.BaseAction;
 
 @Controller("Admin-RoleAtion")
 @Scope("prototype")
-public class RoleAction extends BaseAction<Role> implements SessionAware{
+public class RoleAction extends BaseAction<RoleInfo> implements SessionAware{
 	
 	private Map<String, Object> session = null;
 	
@@ -66,7 +66,7 @@ public class RoleAction extends BaseAction<Role> implements SessionAware{
 		String userId=request.getParameter("userId");
 		String roleId=model.getId();
 		User user=userService.getEntity(User.class, userId);
-		user.setRoleId(roleService.getEntity(Role.class, roleId));
+		user.setRoleId(roleService.getEntity(RoleInfo.class, roleId));
 		if(userService.update(user)){
 			ajaxReturn("ok", "ÐÞ¸Ä³É¹¦£¡", "ok");
 			return "jsonReturn";

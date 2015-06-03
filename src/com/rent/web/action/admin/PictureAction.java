@@ -1,24 +1,38 @@
 package com.rent.web.action.admin;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.rent.domin.Manager;
+import com.rent.domin.Car;
+import com.rent.domin.Manage;
 import com.rent.domin.Picture;
+import com.rent.domin.PictureCar;
+import com.rent.domin.PictureManager;
 import com.rent.domin.PictureUser;
 import com.rent.domin.User;
+import com.rent.service.CarService;
+import com.rent.service.ManagerService;
 import com.rent.service.PictureCarService;
 import com.rent.service.PictureManagerService;
 import com.rent.service.PictureService;
 import com.rent.service.PictureUserService;
+import com.rent.service.UserService;
 import com.rent.web.action.BaseAction;
 
 @Controller("Admin-PictureAction")
@@ -39,6 +53,30 @@ public class PictureAction extends BaseAction<Picture> implements SessionAware{
 	@Resource 
 	private PictureManagerService pictureManagerService;
 	
+	@Resource
+	private CarService carService;
+	
+	@Resource
+	private ManagerService managerService;
+	
+	@Resource
+	private UserService userService;
+	
+	private File img[];
+	private String imgFileName[];
+	
+	public File[] getImg() {
+		return img;
+	}
+	public void setImg(File[] img) {
+		this.img = img;
+	}
+	public String[] getImgFileName() {
+		return imgFileName;
+	}
+	public void setImgFileName(String[] imgFileName) {
+		this.imgFileName = imgFileName;
+	}
 	//ajax json数据变量
 	private Map<String, Object> jsonData;
 	
@@ -61,6 +99,117 @@ public class PictureAction extends BaseAction<Picture> implements SessionAware{
 	}
     
 	/**
+	 * 车图片上传页面
+	 * @return
+	 */
+	public String intoUpload(){
+		return "intoUpload";
+	}
+	
+	/**
+	 * 跳到车图片更改页
+	 * @return
+	 */
+	public String intoModify(){
+		String hql="from Picture where id is in("
+				+ "select pictureId form PictureCar where carId=?)";
+		List<Picture> pictures=pictureService.findListByHql(hql, request.getParameter("carId"));
+		for(Picture p:pictures){
+			pictureService.delete(p);
+		}
+		return "intoModify";
+	}
+	/**
+	 * 管理员图片上传页面
+	 * @return
+	 */
+	public String intoUpload2(){
+		return "intoUpload2";
+	}
+	/**
+	 *车图片上传
+	 * @return
+	 */
+	public String imgUpload(){
+		Picture picture =new Picture();
+        OutputStream outputStream=null;
+        InputStream inputStream=null;
+		try{
+			String reqlpath=ServletActionContext.getServletContext().getRealPath("/carPicture");
+            File saveFile=new File(reqlpath);
+            Car car=carService.getEntity(Car.class, request.getParameter("carId"));
+            if(!saveFile.exists())
+                saveFile.mkdirs();
+            for(int i=0;i<img.length;i++){
+            	//文件重命名 用UUID
+                String extension01=img[i].getName().replace(img[i].getName().substring(0,img[i].getName().lastIndexOf(".")),UUID.randomUUID().toString());
+                //;
+                outputStream=new FileOutputStream(reqlpath+"/"+extension01);
+                byte[] bs=new byte[1024];
+                inputStream=new FileInputStream(img[i]);
+                int length=0;
+                while((length=inputStream.read(bs))>0){
+            		outputStream.write(bs, 0, length);
+            	}
+                picture.setFileFileName(extension01);
+                picture.setType(model.getType());
+                picture.setUrl(reqlpath+"\\"+extension01);
+                pictureService.save(picture);
+                PictureCar pictureCar=new PictureCar();
+                pictureCar.setCarId(car);
+                pictureCar.setPictureId(picture);
+                pictureCarService.save(pictureCar);
+            }  
+            inputStream.close();
+            outputStream.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		return "success";
+	}
+	
+	/**
+	 * 管理员图片上传
+	 * @return
+	 */
+	public String imgUploads(){
+		Picture picture =new Picture();
+        OutputStream outputStream=null;
+        InputStream inputStream=null;
+		try{
+			String reqlpath=ServletActionContext.getServletContext().getRealPath("/managerPicture");
+            File saveFile=new File(reqlpath);
+            Manage manager=managerService.getEntity(Manage.class,request.getParameter("managerId"));
+            if(!saveFile.exists())
+                saveFile.mkdirs();
+            for(int i=0;i<img.length;i++){
+            	//文件重命名 用UUID
+                String extension01=img[i].getName().replace(img[i].getName().substring(0,img[i].getName().lastIndexOf(".")),UUID.randomUUID().toString());
+                //;
+                outputStream=new FileOutputStream(reqlpath+"/"+extension01);
+                byte[] bs=new byte[1024];
+                inputStream=new FileInputStream(img[i]);
+                int length=0;
+                while((length=inputStream.read(bs))>0){
+            		outputStream.write(bs, 0, length);
+            	}
+                picture.setFileFileName(extension01);
+                picture.setType(model.getType());
+                picture.setUrl(reqlpath+"\\"+extension01);
+                pictureService.save(picture);
+                PictureManager manager2=new PictureManager();
+                manager2.setManagerId(manager);
+                manager2.setPictureId(picture);
+                pictureManagerService.save(manager2);
+            }  
+            inputStream.close();
+            outputStream.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		return "success";
+	}
+	/**
 	 * 查看用户的图片
 	 * @return
 	 */
@@ -77,14 +226,16 @@ public class PictureAction extends BaseAction<Picture> implements SessionAware{
 		identity=pictureService.findListByHql(hql01, request.getParameter("userId"));
 		student=pictureService.findListByHql(hql02, request.getParameter("userId"));
 		other=pictureService.findListByHql(hql03, request.getParameter("userId"));
+		User user=userService.getEntity(User.class, request.getParameter("userId"));
 		request.setAttribute("identity", identity);
 		request.setAttribute("student", student);
 		request.setAttribute("other", other);
+		request.setAttribute("user", user);
 		return "queryUser";
 	}
 	
 	/**
-	 * 查看管理员的照片
+	 * 查看管理员的照片(*)
 	 * @return
 	 */
 	public String queryManager(){
@@ -98,7 +249,7 @@ public class PictureAction extends BaseAction<Picture> implements SessionAware{
 	}
 	
 	/**
-	 * 查看车的图片
+	 * 查看车的图片(*)
 	 * @return
 	 */
 	public String queryCar(){
@@ -109,6 +260,95 @@ public class PictureAction extends BaseAction<Picture> implements SessionAware{
 		cp=pictureService.findListByHql(hql01, carId);
 		request.setAttribute("cp", cp);
 		return "queryCar";
+	}
+	
+	/**
+	 * 根据图片id删除图片
+	 * @return
+	 */
+	public String delete1(){
+		String hql="from Picture where id =?";
+		List<Picture> userPicture=pictureService.findListByHql(hql, model.getId());
+		if(!userPicture.isEmpty()){
+			String url=userPicture.get(0).getUrl();
+			pictureService.delete(userPicture.get(0));
+			File file=new File(url);
+			file.delete();
+			ajaxReturn("ok", "成功删除", "ok");
+			return "jsonReturn";
+		}else{
+			ajaxReturn("error", "删除失败", "error");
+			return "jsonReturn";
+		}
+	}
+	
+	/**
+	 * 删除管理员图片
+	 * @return
+	 */
+	public String delete2(){
+		String hql="from Picture where id is in("
+				+ "select pictureId from PictureManager where managerId=?";
+		List<Picture> managerPicture=pictureService.findListByHql(hql, model.getId());
+		if(!managerPicture.isEmpty()){
+			for(Picture p:managerPicture){
+				String url=p.getUrl();
+				pictureService.delete(p);
+				File file=new File(url);
+				file.delete();
+			}
+			ajaxReturn("ok", "成功删除", "ok");
+			return "jsonReturn";
+		}else{
+			ajaxReturn("error", "删除失败", "error");
+			return "jsonReturn";
+		}
+	}
+	
+	/**
+	 * 删除车的图片
+	 * @return
+	 */
+	public String delete3(){
+		String hql="from Picture where id is in("
+				+ "select pictureId from PictureCar where carId=?";
+		List<Picture> carPicture=pictureService.findListByHql(hql, model.getId());
+		if(!carPicture.isEmpty()){
+			for(Picture p:carPicture){
+				String url=p.getUrl();
+				pictureService.delete(p);
+				File file=new File(url);
+				file.delete();
+			}
+			ajaxReturn("ok", "成功删除", "ok");
+			return "jsonReturn";
+		}else{
+			ajaxReturn("error", "删除失败", "error");
+			return "jsonReturn";
+		}
+	}
+	
+	/**
+	 * 删除用户的图片
+	 * @return
+	 */
+	public String delete4(){
+		String hql="from Picture where id is in("
+				+ "select pictureId from PictureUser where userId=?";
+		List<Picture> userPicture=pictureService.findListByHql(hql, model.getId());
+		if(!userPicture.isEmpty()){
+			for(Picture p:userPicture){
+				String url=p.getUrl();
+				pictureService.delete(p);
+				File file=new File(url);
+				file.delete();
+			}
+			ajaxReturn("ok", "成功删除", "ok");
+			return "jsonReturn";
+		}else{
+			ajaxReturn("error", "删除失败", "error");
+			return "jsonReturn";
+		}
 	}
 	/**
      * ajax请求 json数据格式规范生成方法

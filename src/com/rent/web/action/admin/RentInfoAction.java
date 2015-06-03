@@ -11,10 +11,12 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.rent.domin.Car;
 import com.rent.domin.Picture;
 import com.rent.domin.PictureCar;
 import com.rent.domin.RentInfo;
 import com.rent.domin.User;
+import com.rent.service.CarService;
 import com.rent.service.PictureCarService;
 import com.rent.service.PictureService;
 import com.rent.service.RentInfoService;
@@ -37,6 +39,9 @@ public class RentInfoAction extends BaseAction<RentInfo> implements SessionAware
 	
 	@Resource
 	private UserService userService;
+	
+	@Resource
+	private CarService carService;
 	
 	//ajax json数据变量
 	private Map<String, Object> jsonData;
@@ -67,6 +72,7 @@ public class RentInfoAction extends BaseAction<RentInfo> implements SessionAware
 		List<RentInfo> rlist=new ArrayList<RentInfo>();
 		List<Picture> plist=new ArrayList<Picture>();
 		List<User> ulist=new ArrayList<User>();
+		List<Car> clist=new ArrayList<Car>();
 		int start=0;
 		int limit=10;
 		String[] params=null;
@@ -80,12 +86,15 @@ public class RentInfoAction extends BaseAction<RentInfo> implements SessionAware
 			PictureCar pc=pictureCarService.getEntity(PictureCar.class, r.getCarId().toString());
 			Picture p=pictureService.getEntity(Picture.class, pc.getPictureId().toString());
 			User user=userService.getEntity(User.class, r.getUserId().toString());
+			Car car=carService.getEntity(Car.class, r.getCarId().toString());
 			plist.add(p);
 			ulist.add(user);
+			clist.add(car);
 		}
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("plist", plist);
 		request.setAttribute("ulist", ulist);
+		request.setAttribute("clist", clist);
 		return "query";
 	}
 	

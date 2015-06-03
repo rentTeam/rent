@@ -3,60 +3,61 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<!-- 用户Action -->
-	<package name="user" namespace="/home/user" extends="struts-default,json-default">
+	<package name="userHome" namespace="/home/user" extends="global">
 		<action name="*User" class="com.rent.web.action.home.UserAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
-           <!--  跳到首页 -->
-           <result name="index">/index.jsp</result>
+            
            <!--  跳到注册页面 -->
-           <result name="userRegister">/home/user/register.jsp</result>
+           <result name="userRegister">/WEB-INF/pages/home/user/register.jsp</result>
            <!-- 跳到登录页面 -->
-           <result name="userLogin">/home/user/login.jsp</result>
+           <result name="userLogin">/WEB-INF/pages/home/user/login.jsp</result>
 		</action>
 	</package>
 	
 	<!-- 车Action -->
-	<package name="car" namespace="/home/car" extends="struts-default,json-default">
+	<package name="carHome" namespace="/home/car" extends="global">
 		<action name="*Car" class="com.rent.web.action.home.CarAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
             <!-- 分页查看车的信息 -->
-            <result>/index.jsp</result>
+            <result>/WEB-INF/index.jsp</result>
 		</action>
 	</package>
 	
 	<!-- 图片Action -->
-	<package name="picture" namespace="/home/picture" extends="struts-default,json-default">
+	<!--能上传的文件的最大字节,现在为20M,即1024*1024*20-->
+    <constant name="struts.multipart.maxSize" value="20971520"/>
+	<package name="pictureHome" namespace="/home/picture" extends="global">
 		<action name="*Picture" class="com.rent.web.action.home.PictureAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
             <!-- 跳到身份证图片上传页 -->
-            <result name="identityUpload">/home/picture/identityUpload.jsp</result>
+            <result name="identityUpload">/WEB-INF/pages/home/picture/identityUpload.jsp</result>
             <!-- 跳到学生证图片上传页 -->
-            <result name="studentUpload">/home/picture/studentUpload.jsp</result>
+            <result name="studentUpload">/WEB-INF/pages/home/picture/studentUpload.jsp</result>
             <!-- 跳到其他图片上传页 -->
-            <result name="otherUpload">/home/picture/otherUpload.jsp</result>
+            <result name="otherUpload">/WEB-INF/pages/home/picture/otherUpload.jsp</result>
 		</action>
 	</package>
 	
 	<!-- 租车信息Action -->
-	<package name="rentInfo" namespace="/home/rent" extends="struts-default,json-default">
+	<package name="rentInfoHome" namespace="/home/rent" extends="global">
 		<action name="*Rent" class="com.rent.web.action.home.RentInfoAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
             <!-- 跳到租车页面 -->
-            <result name="intoRent">/home/rent/rentCar.jsp</result>
+            <result name="intoRent">/WEB-INF/pages/home/rent/rentCar.jsp</result>
             <!-- 查看租借信息 -->
-            <result name="query">/home/rent/query.jsp</result>
+            <result name="query">/WEB-INF/pages/home/rent/query.jsp</result>
 		</action>
 	</package>
 </struts>    

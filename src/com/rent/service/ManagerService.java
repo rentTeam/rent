@@ -1,7 +1,7 @@
 package com.rent.service;
 
-import com.rent.domin.Manager;
+import com.rent.domin.Manage;
 
-public interface ManagerService extends BaseService<Manager> {
+public interface ManagerService extends BaseService<Manage> {
 
 }

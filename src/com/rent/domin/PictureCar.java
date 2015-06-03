@@ -1,5 +1,7 @@
 package com.rent.domin;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +13,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @IdClass(PictureCar.class)
-public class PictureCar {
+public class PictureCar implements Serializable{
 	private Picture pictureId;
 	private Car carId;
 	
@@ -26,7 +28,6 @@ public class PictureCar {
 	}
 	@Id
 	@OneToOne(cascade=CascadeType.ALL)
-	@Column(name="carId")
 	public Car getCarId() {
 		return carId;
 	}

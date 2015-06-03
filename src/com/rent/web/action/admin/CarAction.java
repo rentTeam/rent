@@ -1,5 +1,6 @@
 package com.rent.web.action.admin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -130,7 +131,10 @@ public class CarAction extends BaseAction<Car> implements SessionAware{
 		plist=pictureService.findListByHql(hql, carId);
 		if(carService.delete(car)){
 			for(Picture p:plist){
+				String url=p.getUrl();
 				pictureService.delete(p);
+				File file =new File(url);
+				file.delete();
 			}
 			ajaxReturn("ok", "³É¹¦É¾³ý", "ok");
 			return "jsonReturn";

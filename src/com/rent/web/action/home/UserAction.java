@@ -10,7 +10,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.rent.domin.Role;
+import com.rent.domin.RoleInfo;
 import com.rent.domin.User;
 import com.rent.service.RoleService;
 import com.rent.service.UserService;
@@ -20,7 +20,8 @@ import com.rent.web.action.BaseAction;
 @Scope("prototype")
 public class UserAction extends BaseAction<User> implements SessionAware{
 	
-private Map<String, Object> session = null;
+
+    private Map<String, Object> session = null;
 	
 	//ajax json数据变量
 	private Map<String, Object> jsonData;
@@ -30,6 +31,8 @@ private Map<String, Object> session = null;
 	
 	@Resource
 	private RoleService roleService;
+	
+	
 	public Map<String, Object> getSession() {
 		return session;
 	}
@@ -56,6 +59,9 @@ private Map<String, Object> session = null;
 		return "index";
 	}
 	
+	public String intoIndex(){
+		return "intoIndex";
+	}
 	/**
 	 * 用户注册页面
 	 * @return
@@ -91,7 +97,7 @@ private Map<String, Object> session = null;
 			user.setPhone(model.getPhone());
 			user.setSchool(model.getSchool());
 			user.setUserName(model.getUserName());
-			user.setRoleId(roleService.getEntity(Role.class, 5));
+			user.setRoleId(roleService.getEntity(RoleInfo.class, 5));
 			this.ajaxReturn("ok", "注册成功", "ok");
 			return "jsonReturn";
 		}else{
@@ -104,7 +110,7 @@ private Map<String, Object> session = null;
 	 * 用户登录页面
 	 * @return
 	 */
-	public String userLogin(){
+	public String intoLogin(){
 		return "userLogin";
 	}
 	
@@ -112,7 +118,7 @@ private Map<String, Object> session = null;
 	 * 用户登录验证
 	 * @return
 	 */
-	public String userCheck(){
+	public String check(){
 		List<User> userList=userService.findListByHql("from User where userName=?", model.getUserName());
 		if(!userList.isEmpty()){
 			if(userList.get(0).getPassword().equals(model.getPassword())){
@@ -133,7 +139,7 @@ private Map<String, Object> session = null;
 	/**
 	 * 系统自动添加的角色属性
 	 */
-	public UserAction(){
+	/*public UserAction(){
 		if(null==roleService.findListByHql("form Role as role")){
 			Role role =new Role();
 			role.setId(1+"");
@@ -157,7 +163,7 @@ private Map<String, Object> session = null;
 			role.setDesc("普通用户");
 			roleService.save(role);
 		}
-	}
+	}*/
 	
 	/**
      * ajax请求 json数据格式规范生成方法

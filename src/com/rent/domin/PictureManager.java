@@ -1,5 +1,7 @@
 package com.rent.domin;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,9 +13,9 @@ import javax.persistence.OneToOne;
 
 @Entity
 @IdClass(PictureManager.class)
-public class PictureManager {
+public class PictureManager implements Serializable{
 	private Picture pictureId;
-	private Manager managerId;
+	private Manage managerId;
 	
 	@Id
 	@ManyToOne(cascade=CascadeType.ALL)
@@ -27,11 +29,10 @@ public class PictureManager {
 	
 	@Id
 	@OneToOne(cascade=CascadeType.ALL)
-	@Column(name="managerId")
-	public Manager getManagerId() {
+	public Manage getManagerId() {
 		return managerId;
 	}
-	public void setManagerId(Manager managerId) {
+	public void setManagerId(Manage managerId) {
 		this.managerId = managerId;
 	}
 	@Override

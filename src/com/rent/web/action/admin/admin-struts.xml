@@ -3,76 +3,95 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<!-- 车Action -->
-	<package name="car" namespace="/admin/car" extends="struts-default,json-default">
+	<package name="carAdmin" namespace="/admin/car" extends="struts-default,json-default">
 		<action name="*Car" class="com.rent.web.action.admin.CarAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
             <!-- 查看已有车辆信息 -->
-            <result name="query">/admin/car/query.jsp</result>
-            <!-- 转到车辆信息修改页 -->
-            <result name="intoAdd">/admin/car/add.jsp</result>
+            <result name="query">/WEB-INF/pages/admin/car/query.jsp</result>
+            <!-- 转到车辆信息添加页 -->
+            <result name="intoAdd">/WEB-INF/pages/admin/car/add.jsp</result>
             <!-- 转到车辆信息更新页 -->
-            <result>/admin/car/update.jsp</result>
+            <result name="intoUpdate">/WEB-INF/pages/admin/car/update.jsp</result>
+            
 		</action>
 	</package>
 	
 	<!-- 管理员Action -->
-	<package name="manager" namespace="/admin/manager" extends="struts-default,json-default">
+	<package name="managerAdmin" namespace="/admin/manager" extends="struts-default,json-default">
 		<action name="*Manager" class="com.rent.web.action.admin.ManagerAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
+            <!-- 跳到系统首页 -->
+            <result name="managerLogin">/WEB-INF/pages/admin/index.jsp</result>
+            <!-- 跳到管理员信息添加页面 -->
+            <result name="intoAdd">/WEB-INF/pages/admin/manager/add.jsp</result>
+            <!-- 管理员信息查询 -->
+            <result name="query">/WEB-INF/pages/admin/manager/query.jsp</result>
+            <!-- 跳到管理员信息更新页 -->
+            <result name="intoUpdate">/WEB-INF/pages/admin/manager/update.jsp</result>
 		</action>
 	</package>
 	
 	<!-- 图片Action -->
-	<package name="picture" namespace="/admin/picture" extends="struts-default,json-default">
+	<package name="pictureAdmin" namespace="/admin/picture" extends="struts-default,json-default">
 		<action name="*Picture" class="com.rent.web.action.admin.PictureAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
+            <!--跳到车图片上传页面 -->
+            <result name="intoUpload">/WEB-INF/pages/admin/picture/carImg.jsp</result>
+            <!--跳到管理员图片上传页面 -->
+            <result name="intoUpload2">/WEB-INF/pages/admin/picture/managerImg.jsp</result>
+            <!-- 跳到车图片更改页 -->
+            <result name="intoModify">/WEB-INF/pages/admin/picture/managerImg.jsp</result>
+            <!-- 查看用户的图片 -->
+            <result name="queryUser">/WEB-INF/pages/admin/picture/lookUserImg.jsp</result>
 		</action>
 	</package>
 	
 	<!-- 租车信息Action -->
-	<package name="rentInfo" namespace="/admin/rentInfo" extends="struts-default,json-default">
+	<package name="rentInfoAdmin" namespace="/admin/rentInfo" extends="struts-default,json-default">
 		<action name="*Rent" class="com.rent.web.action.admin.RentInfoAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
             <!-- 根据出租的初始时间查询出租表 -->
-            <result name="query">/admin/rentInfo/query.jsp</result>
+            <result name="query">/WEB-INF/pages/admin/rentInfo/query.jsp</result>
 		</action>
 	</package>
 	
 	<!-- 角色Action -->
-	<package name="role" namespace="/admin/role" extends="struts-default,json-default">
+	<package name="roleAdmin" namespace="/admin/role" extends="struts-default,json-default">
 		<action name="*Role" class="com.rent.web.action.admin.RoleAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
             <!-- 跳到角色修改页面 -->
-            <result>/admin/role/update.jsp</result>
+            <result name="intoUpdate">/WEB-INF/pages/admin/role/update.jsp</result>
 		</action>
 	</package>
 	
 	<!-- 用户Action -->
-	<package name="user" namespace="/admin/user" extends="struts-default,json-default">
+	<package name="userAdmin" namespace="/admin/user" extends="struts-default,json-default">
 		<action name="*User" class="com.rent.web.action.admin.UserAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
             <!-- 查看用户的信息 -->
-            <result name="query">/admin/user/query.jsp</result>
+            <result name="query">/WEB-INF/pages/admin/user/query.jsp</result>
             <!-- 根据角色查询用户信息 -->
-            <result name="queryByRole">/admin/user/query.jsp</result>
+            <result name="queryByRole">/WEB-INF/pages/admin/user/query.jsp</result>
+            <!-- 转到发邮件的页面 -->
+            <result name="intoSentEmail">/WEB-INF/pages/admin/user/sentEmail.jsp</result>
 		</action>
 	</package>
 </struts>    
