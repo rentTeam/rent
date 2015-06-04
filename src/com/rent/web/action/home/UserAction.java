@@ -1,5 +1,6 @@
 package com.rent.web.action.home;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +86,27 @@ public class UserAction extends BaseAction<User> implements SessionAware{
 	 */
 	public String add(){
 		User user=new User();
+		List<RoleInfo> rlist=new ArrayList<RoleInfo>();
+		rlist=roleService.findListByHql("from RoleInfo as role");
+		if(rlist.isEmpty()){//系统自动添加的角色属性
+			RoleInfo role =new RoleInfo();
+			role.setRoleName("administrator");
+			role.setStatus("系统管理员");
+			roleService.save(role);
+			role.setRoleName("manager");
+			role.setStatus("普通管理员");
+			roleService.save(role);
+			role.setRoleName("vip");
+			role.setStatus("vip用户");
+			roleService.save(role);
+			role.setRoleName("rent");
+			role.setStatus("可租借用户");
+			roleService.save(role);
+			role.setRoleName("general");
+			role.setStatus("普通用户");
+			roleService.save(role);
+		}
+		rlist=roleService.findListByHql("from RoleInfo as role where roleName=?","general");
 		if(!isExistUser()){
 			user.setCollege(model.getCollege());
 			user.setEmail(model.getEmail());
@@ -93,7 +115,14 @@ public class UserAction extends BaseAction<User> implements SessionAware{
 			user.setPhone(model.getPhone());
 			user.setSchool(model.getSchool());
 			user.setUserName(model.getUserName());
-			user.setRoleId(roleService.getEntity(RoleInfo.class, 5));
+			for(RoleInfo r:rlist)
+				user.setRoleId(r);
+			userService.save(user);
+			List<User> userList=userService.findListByHql("from User where userName=?", model.getUserName());
+			if(!userList.isEmpty()&&!rlist.isEmpty()){
+				session.put("id", userList.get(0).getId());
+				session.put("roleId",rlist.get(0).getId());
+			}
 			this.ajaxReturn("ok", "注册成功", "ok");
 			return "jsonReturn";
 		}else{
@@ -132,34 +161,6 @@ public class UserAction extends BaseAction<User> implements SessionAware{
 		}
 	}
 	
-	/**
-	 * 系统自动添加的角色属性
-	 */
-	/*public UserAction(){
-		if(null==roleService.findListByHql("form Role as role")){
-			Role role =new Role();
-			role.setId(1+"");
-			role.setName("administrator");
-			role.setDesc("系统管理员");
-			roleService.save(role);
-			role.setId(2+"");
-			role.setName("manager");
-			role.setDesc("普通管理员");
-			roleService.save(role);
-			role.setId(3+"");
-			role.setName("vip");
-			role.setDesc("vip用户");
-			roleService.save(role);
-			role.setId(4+"");
-			role.setName("rent");
-			role.setDesc("可租借用户");
-			roleService.save(role);
-			role.setId(5+"");
-			role.setName("general");
-			role.setDesc("普通用户");
-			roleService.save(role);
-		}
-	}*/
 	
 	/**
      * ajax请求 json数据格式规范生成方法

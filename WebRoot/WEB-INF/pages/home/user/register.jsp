@@ -17,6 +17,10 @@
     		.require{
     		color:red;
     		}
+    		label.error{
+    		color:red;
+    		font-size: small;
+    		}
   		</style>
  </head>
  <body>
@@ -56,7 +60,8 @@
                         <input type="text" name="college" placeholder="ples write your college!" class="required">
                     </div>
                     <div class="am-cf">
-                    	<button type="submit" id="aaa" onclick="jin()" class="am-btn am-btn-secondary">提交</button>
+                    	<p class="am-form-help" id="msgStatus"></p>
+                    	<button type="submit" class="am-btn am-btn-secondary">提交</button>
                     </div>
                 </form>
                 <hr>
@@ -71,7 +76,7 @@
 $(function(){
 	
 	
-	 var msgStatus=$("#msgStatus");
+	 var msgStas=$("#msgStatus");
 	 
 	 $("#registerForm").validate({
 	 	
@@ -92,7 +97,6 @@ $(function(){
                     college: {required: '学院不能为空'}
                 },
                 submitHandler: function() {
-                    alert("start");
                     $.ajax({
                         url: "${pageContext.request.contextPath}/home/user/addUser.action",
                         data: $("#registerForm").serialize(),

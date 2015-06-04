@@ -30,7 +30,7 @@
 				<form class="am-form" method="post" id="loginForm">
 					<div class="am-form-group">
 						<label class="">用户名:</label>
-						<input type="text" name="username"/>
+						<input type="text" name="userName"/>
 					</div>
 					<div class="am-form-group">
 						<label class="">password:</label>

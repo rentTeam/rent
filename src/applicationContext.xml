@@ -50,6 +50,7 @@
 		</property>
 		<property name="annotatedClasses">
 			<list>
+				<value>com.rent.domin.RoleInfo</value>
 				<value>com.rent.domin.Car</value>
 				<value>com.rent.domin.Comment</value>
 				<value>com.rent.domin.Label</value>
@@ -59,7 +60,6 @@
 				<value>com.rent.domin.PictureManager</value>
 				<value>com.rent.domin.PictureUser</value>
 				<value>com.rent.domin.RentInfo</value>
-				<value>com.rent.domin.RoleInfo</value>
 				<value>com.rent.domin.User</value>
 			</list>
 		</property>

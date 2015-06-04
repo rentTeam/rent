@@ -97,9 +97,9 @@ public class User {
 		this.phone = phone;
 	}
 	
-	@Basic
+	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="RoleId")
+	@JoinColumn(name="roleId")
 	public RoleInfo getRoleId() {
 		return roleId;
 	}

@@ -111,7 +111,7 @@ public class ManagerAction extends BaseAction<Manage> implements SessionAware{
 			manager.setIdentity(model.getIdentity());
 			manager.setPassword(model.getPassword());
 			manager.setUserName(model.getUserName());
-			manager.setRoleId(roleService.getEntity(RoleInfo.class, model.getRoleId().toString()));
+			manager.setRoleId(model.getRoleId());
 			if(managerService.save(manager)){
 				ajaxReturn("ok", "添加成功", "ok");
 				return "jsonReturn";
@@ -195,7 +195,7 @@ public class ManagerAction extends BaseAction<Manage> implements SessionAware{
 		manager.setIdentity(model.getIdentity());
 		manager.setPassword(model.getPassword());
 		manager.setUserName(model.getUserName());
-		manager.setRoleId(roleService.getEntity(RoleInfo.class, model.getRoleId().toString()));
+		manager.setRoleId(model.getRoleId());
 		if(managerService.update(manager)){
 			ajaxReturn("ok", "成功更新", "ok");
 			return "jsonReturn";

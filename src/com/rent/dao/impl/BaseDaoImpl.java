@@ -80,7 +80,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
     }
 
     @Override
-    public <T> List<T> findListByHQL(String hql, Object... objects) {
+    public <T> List<T> findListByHQL(String hql,Object...objects) {
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		for(int i = 0 ; i < objects.length ; i ++){
 			query.setParameter(i, objects[i]);
@@ -90,7 +90,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
     
     
     @Override
-	public int queryForPages(String hql, Object... objects) {
+	public int queryForPages(String hql, Object...objects) {
     	Query query = sessionFactory.getCurrentSession().createQuery(hql);
         for(int i = 0 ; i < objects.length ; i ++){
             query.setParameter(i, objects[i]);

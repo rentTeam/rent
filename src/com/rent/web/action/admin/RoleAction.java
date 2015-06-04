@@ -66,7 +66,7 @@ public class RoleAction extends BaseAction<RoleInfo> implements SessionAware{
 		String userId=request.getParameter("userId");
 		String roleId=model.getId();
 		User user=userService.getEntity(User.class, userId);
-		user.setRoleId(roleService.getEntity(RoleInfo.class, roleId));
+		user.setRoleId(roleService.getEntity(RoleInfo.class,model.getId().toString()));
 		if(userService.update(user)){
 			ajaxReturn("ok", "ÐÞ¸Ä³É¹¦£¡", "ok");
 			return "jsonReturn";

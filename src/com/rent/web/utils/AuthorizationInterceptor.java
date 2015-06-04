@@ -69,7 +69,7 @@ public class AuthorizationInterceptor extends AbstractInterceptor {
         //登录验证 修改 韦英飘
         if (session == null) {
 //            System.out.println("\nAuthorizationInterceptor=> NO SESSION!");
-            return "home";
+            return "homeLogin";
         } else {
             String role = (String) session.getAttribute("role");
             // 如果没有登陆，那么就退出系统
