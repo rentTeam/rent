@@ -1,0 +1,3 @@
+function jin(){
+	alert("kjkjkjkjkjkj");
+}

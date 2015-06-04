@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-
+<!doctype html>
 <!-- 头部 -->
  <%@include file="/WEB-INF/pages/admin/header-tpl.jsp" %>
  		<style>
@@ -18,6 +18,8 @@
     		color:red;
     		}
   		</style>
+ </head>
+ <body>
 	<div class="header">
   			<div class="am-g">
     			<h1>用户   注册</h1>
@@ -28,7 +30,7 @@
 		
 		<div class="am-g am-center">
             <div class="am-center am-u-sm-6 am-u-sm-centered">
-            	<form class="am-form" id="registerForm">
+            	<form class="am-form" id="registerForm" method="post">
                 	<div class="am-form-group">
                     	<label class="am-form-label" for="userName" >用户名:<span class="require">*</span> </label>
                         <input type="text" name="userName" id="userName" placeholder="username" class="required">
@@ -54,7 +56,7 @@
                         <input type="text" name="college" placeholder="ples write your college!" class="required">
                     </div>
                     <div class="am-cf">
-                    	<button type="submit" class="am-btn am-btn-secondary">提交</button>
+                    	<button type="submit" id="aaa" onclick="jin()" class="am-btn am-btn-secondary">提交</button>
                     </div>
                 </form>
                 <hr>
@@ -65,10 +67,14 @@
 <%--footer 与 java script脚本--%>
 <%@include file="/WEB-INF/pages/admin/script-tpl.jsp" %>
 <script type="text/javascript">
+
 $(function(){
+	
+	
 	 var msgStatus=$("#msgStatus");
 	 
 	 $("#registerForm").validate({
+	 	
                 rules: {
                     userName: {required: true},
                     password: {required: true},
@@ -86,7 +92,7 @@ $(function(){
                     college: {required: '学院不能为空'}
                 },
                 submitHandler: function() {
-                    
+                    alert("start");
                     $.ajax({
                         url: "${pageContext.request.contextPath}/home/user/addUser.action",
                         data: $("#registerForm").serialize(),
@@ -111,6 +117,7 @@ $(function(){
 
                     return false;
                 }
+             
             });
 });
 </script>
