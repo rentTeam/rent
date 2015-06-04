@@ -37,6 +37,9 @@
 						<input type="password" name="password"/>
 					</div>
 					<div class="am-form-group">
+						<a href="${pageContext.request.contextPath }/home/user/userRegisterUser.action"><span class="am-text-xxl">注册</span></a>
+					</div>
+					<div class="am-form-group">
 						<p class="am-form-help" id="msgStatus"></p>
 						<button type="submit" class="am-btn am-btn-secondary">登录</button>
 					</div>

@@ -14,6 +14,9 @@
     		.header p {
       			font-size: 14px;
     		}
+    		.require{
+    		color:red;
+    		}
   		</style>
 	<div class="header">
   			<div class="am-g">
@@ -25,33 +28,33 @@
 		
 		<div class="am-g am-center">
             <div class="am-center am-u-sm-6 am-u-sm-centered">
-            	<form class="am-form">
+            	<form class="am-form" id="registerForm">
                 	<div class="am-form-group">
-                    	<label class="am-form-label">用户名:</label>
-                        <input type="text" name="userName" placeholder="username"/>
+                    	<label class="am-form-label" for="userName" >用户名:<span class="require">*</span> </label>
+                        <input type="text" name="userName" id="userName" placeholder="username" class="required">
                     </div>
                     <div class="am-form-group">
-                    	<label class="am-form-label">密码:</label>
-                        <input type="password" name="password" placeholder="ples set your password!"/>
+                    	<label class="am-form-label" for="password" >密码:<span class="require">*</span> </label>
+                        <input type="password" name="password" placeholder="ples set your password!" class="required">
                     </div>
                     <div class="am-form-group">
-                    	<label class="am-form-label">邮箱号:</label>
-                       	<input type="text" name="email" placeholder="ples set your email!"/>
+                    	<label class="am-form-label" for="email">邮箱号:<span class="require">*</span> </label>
+                       	<input type="text" name="email" placeholder="ples set your email!" class="required">
                     </div>
                     <div class="am-form-group">
-                    	<label class="am-form-label">手机号:</label>
-                        <input type="text" name="phone" placeholder="ples set your phone!"/>
+                    	<label class="am-form-label" for="phone">手机号:<span class="require">*</span> </label>
+                        <input type="text" name="phone" placeholder="ples set your phone!" class="required">
                     </div>
                     <div class="am-form-group">
-                    	<label class="am-form-label">学校:</label>
-                        <input type="text" name="school" placeholder="ples write your school!"/>
+                    	<label class="am-form-label" for="school">学校:<span class="require">*</span> </label>
+                        <input type="text" name="school" placeholder="ples write your school!" class="required">
                     </div>
                     <div class="am-form-group">
-                    	<label class="am-form-label">学院:</label>
-                        <input type="text" name="college" placeholder="ples write your college!"/>
+                    	<label class="am-form-label" for="college" >学院:<span class="require">*</span> </label>
+                        <input type="text" name="college" placeholder="ples write your college!" class="required">
                     </div>
                     <div class="am-cf">
-                    	<input type="submit" value="提交" class="am-btn am-btn-secondary"/>
+                    	<button type="submit" class="am-btn am-btn-secondary">提交</button>
                     </div>
                 </form>
                 <hr>
@@ -65,7 +68,7 @@
 $(function(){
 	 var msgStatus=$("#msgStatus");
 	 
-	 $('#loginForm').validate({
+	 $("#registerForm").validate({
                 rules: {
                     userName: {required: true},
                     password: {required: true},
@@ -86,7 +89,7 @@ $(function(){
                     
                     $.ajax({
                         url: "${pageContext.request.contextPath}/home/user/addUser.action",
-                        data: $("#loginForm").serialize(),
+                        data: $("#registerForm").serialize(),
                         dataType: "json",
                         type: "POST"
                     }).success(function(data) {

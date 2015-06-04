@@ -43,18 +43,19 @@
                 <param name="excludeNullProperties">true</param>
                 <!--是否忽略继承关系 -->
                 <param name="ignoreHierarchy">false</param>
-                
-            <!--后台登录页-->
-           <!--  <result name="adminLogin" type="redirect">/admin/user/showLoginAdmin.do</result> -->
+               
             </result>
             <!--前台登录页-->
             <result name="homeLogin" type="redirect">/home/user/intoLoginUser.action</result>
+            <!--后台登录页-->
+            <result name="adminLogin" type="redirect">/admin/user/showLoginManager.action</result>
+            <!--跳到未登录的主页-->
+            <result name="home" type="redirect">/home/user/indexUser.action</result>
         </global-results>
 
         <action name="index" class="Home-UserAction">
-            <result name="index" type="redirect">/index.jsp</result>
             <!-- 跳到首页 -->
-            <result name="intoIndex">/index.jsp</result>
+            <result name="index">/index.jsp</result>
             <interceptor-ref name="myStack"/>
         </action>
     </package>

@@ -58,10 +58,6 @@ public class UserAction extends BaseAction<User> implements SessionAware{
 	public String index(){
 		return "index";
 	}
-	
-	public String intoIndex(){
-		return "intoIndex";
-	}
 	/**
 	 * 用户注册页面
 	 * @return
@@ -87,7 +83,7 @@ public class UserAction extends BaseAction<User> implements SessionAware{
 	 * 用户注册
 	 * @return
 	 */
-	public String addUser(){
+	public String add(){
 		User user=new User();
 		if(!isExistUser()){
 			user.setCollege(model.getCollege());
