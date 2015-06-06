@@ -11,6 +11,9 @@
     <div class="am-panel-bd">
     	<h1>车图片上传</h1>
     </div>
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>上传车辆图片</small></div>
+    </div>
     <div class="am-panel-bd">
     	<!--file upload start-->
 		<div class="am-g user-col-no-padding">

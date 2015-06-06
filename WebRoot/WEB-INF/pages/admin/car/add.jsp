@@ -16,8 +16,12 @@
         <h3 class="am-panel-title">添加车辆信息</h3>
 
     </div>
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>车辆信息添加</small></div>
+
+    </div>
     <div class="am-panel-bd">
-    	<form class="am-form" id="addCarForm" action="${pageContext.request.contextPath}/admin/car/addCar.action" method="post">
+    	<form class="am-form" id="addCarForm" action="" method="post">
     		<div class="am-g">
     			 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>车型号<span class="require">*</span></label>
