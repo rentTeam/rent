@@ -36,6 +36,13 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
     }
 
     @Override
+	public Object getCarMaxId() {
+    	String hql="select max(c.carId) from Car as c";
+		Query query=sessionFactory.getCurrentSession().createQuery(hql);
+		return query.uniqueResult();
+	}
+    
+	@Override
     public void close(Session session) {
         if(null!=session)
             session.close();

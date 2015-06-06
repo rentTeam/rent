@@ -16,6 +16,8 @@ public interface BaseService<T> {
     public boolean update(T t);
 
     public T getEntity(Class t,Serializable id);
+    
+    public Object getCarMax();
 
     //批量处理
 

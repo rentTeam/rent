@@ -62,7 +62,13 @@ public interface BaseDao {
      * @return
      */
     public int queryForPages(String hql,Object...objects);
-
+    
+    /**
+     * 获取车的最大id
+     * @return
+     */
+    public Object getCarMaxId();
+    
     /**
      * 分页查询
      * @param hql 

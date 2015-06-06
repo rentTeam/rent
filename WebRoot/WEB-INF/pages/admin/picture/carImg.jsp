@@ -20,9 +20,7 @@
 			<div class="am-u-sm-12 am-u-md-6 am-u-lg-4 am-u-sm-centered">
 				<form  id="fileUpload" action="${pageContext.request.contextPath}/admin/picture/imgUploadPicture.action" enctype="multipart/form-data" method="post" class="am-form am-margin-top-lg">
 					<fieldset>
-                        <div class="am-form-group" style="display: none">
-							   <input hidden="hidden" type="text" value="${carId}" name="carId"/>
-                        </div>
+                        <input type="hidden" value="${carId}" name="carId"/>
                         <div class="am-form-group" style="display: none">
 							   <input hidden="hidden" type="text" value="car" name="type"/>
                         </div>

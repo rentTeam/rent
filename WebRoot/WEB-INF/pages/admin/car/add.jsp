@@ -8,6 +8,8 @@
  <%@include file="/WEB-INF/pages/admin/top-nav-tpl.jsp" %>
  <!-- 侧边导航 -->
  <%@include file="/WEB-INF/pages/admin/sidebar.jsp" %>
+ </head>
+ <body>
  <!-- 车辆信息添加 START -->
 <div class="am-panel am-panel-default">
 
@@ -56,7 +58,7 @@
 <%@include file="/WEB-INF/pages/admin/script-tpl.jsp" %>
 <script type="text/javascript">
 $(function(){
-	 var msgStatus=$("#msgStatus");
+	 var msgStas=$("#msgStatus");
 	 
 	 $('#addCarForm').validate({
                 rules: {
@@ -81,15 +83,18 @@ $(function(){
                         dataType: "json",
                         type: "POST"
                     }).success(function(data) {
+                    alert("start");
                         if ( data ) {
                             if ( data.status == "ok" ) {
                                 msgStas.html('<span class="am-text-success">' + data.message + '</span>');
-                     
+                     			alert("a");
                                 window.location.href="${pageContext.request.contextPath}/admin/car/queryCar.action";
                             }else{
                                 msgDesc.html('<span class="am-text-danger">' + data.message + '</span>');
+                                alert("b");
                             }
                         } else {
+                        alert("c");
                             msgStas.html('<span class="am-text-danger">网络异常</span>');
                         }
                     }).fail(function() {

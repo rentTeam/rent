@@ -55,12 +55,11 @@ public class CarAction extends BaseAction<Car> implements SessionAware{
 	 * @return
 	 */
 	private String getMaxId(){
-		String hql="from Car group by carId having Max(carId)";
-		List<Car> clist=carService.findListByHql(hql);
-		if(clist.isEmpty()){
+		String maxid=(String)carService.getCarMax();
+		if(null==maxid){
 			return "car1001";
 		}else{
-			String id=clist.get(0).getCarId();//获取最大的车编号
+			String id=maxid;//获取最大的车编号
 			String subId=id.substring(3);//截取编号的后4位
 			return "car"+String.valueOf(Integer.parseInt(subId)+1);
 		}
@@ -82,15 +81,15 @@ public class CarAction extends BaseAction<Car> implements SessionAware{
 		if(null!=s)start=Integer.parseInt(s);
 		if(null!=l)limit=Integer.parseInt(l);
 		clist=carService.queryForPages("from Car as car", params, start, limit);
-		String hql="from Picture where type='car' and id="
+		/*String hql="from Picture where type='car' and id="
 				+ "(secect pictureId from pictureCar where carId=?)";
 		for(Car car:clist){
 			plist=pictureService.findListByHql(hql, car.getCarId());
 			if(!plist.isEmpty())
 				plists.add(plist.get(0));
-		}
+		}*/
 		request.setAttribute("clist", clist);
-		request.setAttribute("plists", plists);
+		//request.setAttribute("plists", plists);
 		return "query";
 	}
 	

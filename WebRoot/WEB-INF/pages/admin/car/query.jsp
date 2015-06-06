@@ -26,7 +26,6 @@
                 		<th>
                     		<input type="checkbox" data-opt="select-all">
                 		</th>
-                		<th>序号</th>
                 		<th>车编号</th>
                 		<th>展示时的标题</th>
                 		<th>车的图片</th>
@@ -53,10 +52,10 @@
                             		<button class="am-btn am-btn-primary am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle>操作 <span class="am-icon-caret-down"></span>
                             		</button>
                             		<ul class="am-dropdown-content">
-                                		<li><a href="${pageContext.request.contextPath}/admin/car/intoUpdateCar.action?id=<s:property value="#id.id"/>">修改车辆信息</a></li>
-                                		<li><a href="${pageContext.request.contextPath}/admin/picture/intoUploadPicture.action?carId=<s:property value="#id.id"/>">上传图片</a></li>
-                                		<li><a href="${pageContext.request.contextPath}/admin/picture/intoModifyPicture.action?carId=<s:property value="#id.id"/>">更改图片</a></li>
-                                		<li><a class="deleteCar" href="${pageContext.request.contextPath}/admin/car/deleteCar.action?id=<s:property value="#id.id"/>">删除</a></li>
+                                		<li><a href="${pageContext.request.contextPath}/admin/car/intoUpdateCar.action?id=<s:property value="#id.carId"/>">修改车辆信息</a></li>
+                                		<li><a href="${pageContext.request.contextPath}/admin/picture/intoUploadPicture.action?carId=<s:property value="#id.carId"/>">上传图片</a></li>
+                                		<li><a href="${pageContext.request.contextPath}/admin/picture/intoModifyPicture.action?carId=<s:property value="#id.carId"/>">更改图片</a></li>
+                                		<li><a class="deleteCar" href="${pageContext.request.contextPath}/admin/car/deleteCar.action?id=<s:property value="#id.carId"/>">删除</a></li>
                             		</ul>
                         		</div>
                     		</td>

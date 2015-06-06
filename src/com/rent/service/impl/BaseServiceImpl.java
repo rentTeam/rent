@@ -53,7 +53,13 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         return getBaseDao().getEntity(t,id);
     }
 
-    public List<T> findListByHql(String hql,Object...objects) {
+    
+    @Override
+	public Object getCarMax() {
+		return baseDao.getCarMaxId();
+	}
+
+	public List<T> findListByHql(String hql,Object...objects) {
         return baseDao.findListByHQL(hql, objects);
     }
 
