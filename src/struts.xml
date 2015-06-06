@@ -50,12 +50,10 @@
             <!--后台登录页-->
             <result name="adminLogin" type="redirect">/admin/user/showLoginManager.action</result>
             <!--跳到未登录的主页-->
-            <result name="home" type="redirect">/home/user/indexUser.action</result>
+            <result name="index" type="redirect">/home/user/indexUser.action</result>
         </global-results>
-
         <action name="index" class="Home-UserAction">
-            <!-- 跳到首页 -->
-            <result name="index">/index.jsp</result>
+            <result name="home" type="redirect">/home/user/queryUser.action</result>
             <interceptor-ref name="myStack"/>
         </action>
     </package>

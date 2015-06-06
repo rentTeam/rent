@@ -11,8 +11,12 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.rent.domin.Car;
+import com.rent.domin.Picture;
 import com.rent.domin.RoleInfo;
 import com.rent.domin.User;
+import com.rent.service.CarService;
+import com.rent.service.PictureService;
 import com.rent.service.RoleService;
 import com.rent.service.UserService;
 import com.rent.web.action.BaseAction;
@@ -32,6 +36,12 @@ public class UserAction extends BaseAction<User> implements SessionAware{
 	
 	@Resource
 	private RoleService roleService;
+	
+	@Resource
+	private CarService carService;
+	
+	@Resource
+	private PictureService pictureService;
 	
 	
 	public Map<String, Object> getSession() {
@@ -57,7 +67,36 @@ public class UserAction extends BaseAction<User> implements SessionAware{
 	 * @return
 	 */
 	public String index(){
-		return "index";
+		return "home";
+	}
+	
+	/**
+	 * 查看车的信息
+	 * @return
+	 */
+	public String query(){
+		List<Picture> plist=new ArrayList<Picture>();
+		List<Picture> plists=new ArrayList<Picture>();
+		List<Car> clist=new ArrayList<Car>();
+		String s=request.getParameter("start");
+		String l=request.getParameter("limit");
+		int start=0;
+		int limit=10;
+		String[] params=null;
+		if(null!=s)start=Integer.parseInt(s);
+		if(null!=l)limit=Integer.parseInt(l);
+		clist=carService.queryForPages("from Car as car", params, start, limit);
+		String hql="from Picture where type='car' and id="
+				+ "(secect pictureId from pictureCar where carId=?)";
+		for(Car car:clist){
+			plist=pictureService.findListByHql(hql, car.getCarId());
+			if(!plist.isEmpty())
+				plists.add(plist.get(0));
+		}
+		request.setAttribute("clist", clist);
+		request.setAttribute("plists", plists);
+		return "query";
+		
 	}
 	/**
 	 * 用户注册页面
@@ -115,13 +154,16 @@ public class UserAction extends BaseAction<User> implements SessionAware{
 			user.setPhone(model.getPhone());
 			user.setSchool(model.getSchool());
 			user.setUserName(model.getUserName());
-			for(RoleInfo r:rlist)
+			for(RoleInfo r:rlist){
 				user.setRoleId(r);
+				System.out.println("roleName->"+r.getRoleName());
+			}
 			userService.save(user);
 			List<User> userList=userService.findListByHql("from User where userName=?", model.getUserName());
 			if(!userList.isEmpty()&&!rlist.isEmpty()){
 				session.put("id", userList.get(0).getId());
 				session.put("roleId",rlist.get(0).getId());
+				System.out.println("USERName->"+userList.get(0).getUserName());
 			}
 			this.ajaxReturn("ok", "注册成功", "ok");
 			return "jsonReturn";
@@ -147,8 +189,10 @@ public class UserAction extends BaseAction<User> implements SessionAware{
 		List<User> userList=userService.findListByHql("from User where userName=?", model.getUserName());
 		if(!userList.isEmpty()){
 			if(userList.get(0).getPassword().equals(model.getPassword())){
-				session.put("roleId", userList.get(0).getRoleId());
+				session.put("roleId", userList.get(0).getRoleId().getId());
 				session.put("id", userList.get(0).getId());
+				System.out.println("roleId->"+userList.get(0).getRoleId().getId());
+				System.out.println("userName->"+userList.get(0).getUserName());
 				ajaxReturn("ok", "登录成功", "ok");
 				return "jsonReturn";
 			}else{

@@ -82,12 +82,13 @@ public class UserAction extends BaseAction<User> implements SessionAware{
 		if(null!=request.getParameter("limit"))
 			limit=Integer.parseInt(request.getParameter("limit"));
 		ulist=userService.queryForPages(hql, params, start, limit);
-		for(User u:ulist){
+		/*for(User u:ulist){
 			RoleInfo role=roleService.getEntity(RoleInfo.class, u.getRoleId().toString());
 			rlist.add(role);
-		}
+			System.out.println("roleId->"+U.GET)
+		}*/
 		request.setAttribute("ulist", ulist);
-		request.setAttribute("rlist", rlist);
+		//request.setAttribute("rlist", rlist);
 		return "query";
 	}
 	

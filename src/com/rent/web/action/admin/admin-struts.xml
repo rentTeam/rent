@@ -26,6 +26,8 @@
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
+            <!-- 跳到管理员登录页面 -->
+            <result name="intoLogin">/WEB-INF/pages/admin/manager/login.jsp</result>
             <!-- 跳到系统首页 -->
             <result name="managerLogin">/WEB-INF/pages/admin/index.jsp</result>
             <!-- 跳到管理员信息添加页面 -->

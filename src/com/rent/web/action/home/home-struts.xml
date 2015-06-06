@@ -18,21 +18,21 @@
 	</package>
 	
 	<!-- 车Action -->
-	<package name="carHome" namespace="/home/car" extends="global">
+	<package name="carHome" namespace="/home/car" extends="json-default,struts-default">
 		<action name="*Car" class="com.rent.web.action.home.CarAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">
                 <param name="root">jsonData</param>
             </result>
             <!-- 分页查看车的信息 -->
-            <result>/WEB-INF/index.jsp</result>
+            <result name="query">/index.jsp</result>
 		</action>
 	</package>
 	
 	<!-- 图片Action -->
 	<!--能上传的文件的最大字节,现在为20M,即1024*1024*20-->
     <constant name="struts.multipart.maxSize" value="20971520"/>
-	<package name="pictureHome" namespace="/home/picture" extends="global">
+	<package name="pictureHome" namespace="/home/picture" extends="json-default,struts-default">
 		<action name="*Picture" class="com.rent.web.action.home.PictureAction" method="{1}">
 			<!--json 数据-->
             <result type="json" name="jsonReturn">

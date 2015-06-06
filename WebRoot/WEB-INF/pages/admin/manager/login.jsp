@@ -23,7 +23,7 @@
   <body>
 	<div class="header">
   			<div class="am-g">
-    			<h1>用户   登录</h1>
+    			<h1>管理员   登录</h1>
     			
   			</div>
   			<hr/>
@@ -39,9 +39,6 @@
 					<div class="am-form-group">
 						<label class="">password:</label>
 						<input type="password" name="password"/>
-					</div>
-					<div class="am-form-group">
-						<a href="${pageContext.request.contextPath }/home/user/userRegisterUser.action"><span class="am-text-xxl">注册</span></a>
 					</div>
 					<div class="am-form-group">
 						<p class="am-form-help" id="msgStatus"></p>
@@ -71,7 +68,7 @@ $(function(){
                 submitHandler: function() {
                     
                     $.ajax({
-                        url: "${pageContext.request.contextPath}/home/user/checkUser.action",
+                        url: "${pageContext.request.contextPath}/admin/manager/loginManager.action",
                         data: $("#loginForm").serialize(),
                         dataType: "json",
                         type: "POST"
@@ -80,7 +77,7 @@ $(function(){
                             if ( data.status == "ok" ) {
                                 msgStas.html('<span class="am-text-success">' + data.message + '</span>');
                      			alert("success!");
-                                window.location.href="${pageContext.request.contextPath}/home/car/queryCar.action";
+                                window.location.href="${pageContext.request.contextPath}/admin/manager/indexManager.action";
                             }else{
                                 msgStas.html('<span class="am-text-danger">' + data.message + '</span>');
                                 alert("hhhhhhh!");
@@ -100,3 +97,4 @@ $(function(){
 </script>
 <%--尾部--%>
 <%@include file="/WEB-INF/pages/admin/footer-tpl.jsp"%>
+

@@ -1,17 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>index</title>
-        <link rel="stylesheet" href="public/assets/css/amazeui.min.css"/>
-        <link rel="stylesheet" href="public/assets/css/admin.css"/>
-        <style>
-			.my-center{
-				display:block;
-				margin-left:auto;
-				margin-right:auto;
-			}
-		</style>
+
+<!-- 头部 -->
+ <%@include file="/WEB-INF/pages/admin/header-tpl.jsp" %>
 	</head>
 	<body>
 <!--顶部-->
@@ -27,10 +17,10 @@
         				</a>
         				<ul class="am-dropdown-content">
           					<li><a href="home/user/intoLoginUser.action"><span class="am-icon-user"></span>登录</a></li>
-          					<li id="01" hidden="hidden"><a href="rentCar/home/picture/identityUploadPicture.action"><span class="am-icon-user"></span> 上传身份证图片</a></li>
-          					<li id="02" hidden="hidden"><a href="${pageContext.request.contextPath}/home/picture/studentUploadPicture.action"><span class="am-icon-user"></span> 上传身份证图片</a></li>
-          					<li id="03" hidden="hidden"><a href="${pageContext.request.contextPath}/home/picture/otherUploadPicture.action"><span class="am-icon-user"></span> 上传身份证图片</a></li>
-          					<li id="04" hidden="hidden"><a href="${pageContext.request.contextPath}/home/user/userLogoutUser.action"><span class="am-icon-power-off"></span> 退出</a></li>
+          					<li id="01"><a href="${pageContext.request.contextPath}/home/picture/identityUploadPicture.action"><span class="am-icon-user"></span> 上传身份证图片</a></li>
+          					<li id="02"><a href="${pageContext.request.contextPath}/home/picture/studentUploadPicture.action"><span class="am-icon-user"></span> 上传身份证图片</a></li>
+          					<li id="03"><a href="${pageContext.request.contextPath}/home/picture/otherUploadPicture.action"><span class="am-icon-user"></span> 上传身份证图片</a></li>
+          					<li id="04"><a href="${pageContext.request.contextPath}/home/user/userLogoutUser.action"><span class="am-icon-power-off"></span> 退出</a></li>
         				</ul>
       				</li>
     			</ul>
@@ -68,8 +58,8 @@
 		</div>
 		<!--content end-->
         </tbody>
-        <script type="text/javascript" src="public/assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="public/assets/js/amazeui.min.js"></script>
+<%--footer 与 java script脚本--%>
+<%@include file="/WEB-INF/pages/admin/script-tpl.jsp" %>
         <script type="text/javascript">
         	$(function(){
         		var a=$("#01");
@@ -86,6 +76,5 @@
         		});
         	});
         </script>
-        <script type="text/javascript" src="public/assets/js/app.js"></script>
 	</body>
 </html>

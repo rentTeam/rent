@@ -10,7 +10,7 @@
 <div class="am-panel am-panel-default">
     <div class="am-panel-bd">
 
-        <h3>车辆信息展示</h3>
+        <h3>用户信息展示</h3>
 
     </div>
     <div class="am-panel-bd">
@@ -21,7 +21,6 @@
                 		<th>
                     		<input type="checkbox" data-opt="select-all">
                 		</th>
-                		<th>序号</th>
                 		<th>用户名</th>
                 		<th>身份证号码</th>
                 		<th>学校</th>
@@ -44,7 +43,7 @@
             				<td><s:property value="#id.college"/></td>
             				<td><s:property value="#id.email"/></td>
             				<td><s:property value="#id.phone"/></td>
-            				<td>${rlist[loop.index].name }</td>
+            				<td><s:property value="#id.roleId.roleName"/></td>
             				<td>
                         		<div class="am-dropdown" data-am-dropdown>
                             		<button class="am-btn am-btn-primary am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle>操作 <span class="am-icon-caret-down"></span>
@@ -61,6 +60,11 @@
             	</tbody>
 			</table>
 		</form>
+		<div class="am-cf">
+			<p>end!</p>
+            <button class="am-btn am-btn-danger am-btn-sm am-fl" id="deleteList"><i class="am-icon-trash"></i>删除</button>
+            <a href="#" class="am-btn am-btn-success am-btn-sm am-fr"><i class="am-icon-plus"></i>添加</a>
+        </div>
     </div>
 </div>
 

@@ -79,11 +79,11 @@ public class AuthorizationInterceptor extends AbstractInterceptor {
                 return "homeLogin";
             } else {
                 if (namespace.startsWith("/user/")) {
-                    if (role.equals("nomalUser")||role.equals("rentUser")) {
+                    if (role.equals("vip")||role.equals("rentUser")) {
 //                        System.out.println("\nAuthorizationInterceptor=> " + role + " USER");
                         return invocation.invoke();
                     } else {
-                        return "homeLogin";
+                        return "home";
                     }
                 }
                 if (namespace.startsWith("/admin/")) {

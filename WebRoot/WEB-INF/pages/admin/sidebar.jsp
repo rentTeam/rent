@@ -4,7 +4,7 @@
  -->
  <div class="am-cf admin-main">
  	<!-- sidebar start -->
- 	<div class="admin-sidebar admin-nav-xs">
+ 	<div class="admin-sidebar">
  		<ul class="am-list admin-sidebar-list">
  			<li><a href="${pageContext.request.contextPath}/admin/manager/indexManager.action"><i class="am-icon-home admin-nav-xs-icon"></i><span class="admin-nav-xs-hiden">系统首页</span></a></li>
  			<li class="admin-parent">
@@ -33,7 +33,7 @@
  				 <a class="am-cf" data-am-collapse="{target: '#collapse5-nav'}"><i class="am-icon-building admin-nav-xs-icon"></i>
                     <span class="admin-nav-xs-hiden">出租信息管理 <i class="am-icon-angle-right am-fr am-margin-right"></i></span></a>
                 <ul class="am-list am-collapse admin-sidebar-sub" id="collapse5-nav">
-                    <li><a href="${pageContext.request.contextPath}/admin/rentInfo/queryRentInfo.action" class="am-cf">出租信息查询</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/rentInfo/queryRent.action" class="am-cf">出租信息查询</a></li>
                 </ul>
  			</li>
  			<li class="admin-parent">
@@ -46,4 +46,5 @@
  		</ul>
  	</div>
  	<!-- sidebar end -->
- </div>
+ 	<div class="admin-content">
+ 	<!-- content start -->

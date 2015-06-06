@@ -69,11 +69,18 @@ public class ManagerAction extends BaseAction<Manage> implements SessionAware{
 			return false;
 	}
 	/**
+	 * 管理员登录页面
+	 * @return
+	 */
+	public String showLogin(){
+		return "intoLogin";
+	}
+	/**
 	 * 管理员登录
 	 * @return
 	 */
 	public String login(){
-		List<Manage> mlist=managerService.findListByHql("from Manager where userName=?", model.getUserName());
+		List<Manage> mlist=managerService.findListByHql("from Manage where userName=?", model.getUserName());
 		if(mlist.isEmpty()){
 			ajaxReturn("error", "登录失败，没有该用户", "error");
 			return "jsonReturn";
@@ -85,14 +92,20 @@ public class ManagerAction extends BaseAction<Manage> implements SessionAware{
 			return "jsonReturn";
 		}
 	}
-	
+	/**
+	 * 跳到首页
+	 * @return
+	 */
+	public String index(){
+		return "managerLogin";
+	}
 	/**
 	 * 退出登录
 	 * @return
 	 */
 	public String logout(){
 		session.clear();
-		return "userLogin";
+		return "intoLogin";
 	}
 	/**
 	 * 跳到管理员添加页面

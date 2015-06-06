@@ -3,7 +3,7 @@
   </head>
   <body>
 <!--top fixed nav start-->
-<div class="am-topbar am-header-fixed admin-header">
+<header class="am-topbar am-header-fixed admin-header">
     <div class="am-topbar-brand">
         <strong>租车系统</strong> <small>后台管理平台</small>
     </div>
@@ -25,6 +25,6 @@
             </li>
         </ul>
     </div>
-</div>
+</header>
 <!-- top fixed nav end -->
   

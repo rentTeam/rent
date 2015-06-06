@@ -13,29 +13,29 @@
 
     <div class="am-panel-bd">
 
-        <h3 class="am-panel-title"></h3>
+        <h3 class="am-panel-title">添加车辆信息</h3>
 
     </div>
     <div class="am-panel-bd">
     	<form class="am-form" id="addCarForm" action="${pageContext.request.contextPath}/admin/car/addCar.action" method="post">
     		<div class="am-g">
-    			 <div class="am-form-group">
+    			 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>车型号<span class="require">*</span></label>
                         <input type="text" name="model" placeholder="车型号" />
                  </div>
-                 <div class="am-form-group">
+                 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>展示时的标题<span class="require">*</span></label>
                         <input type="text" name="title" placeholder="展示时的标题" />
                  </div>
-                 <div class="am-form-group">
+                 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>每小时的出租价格<span class="require">*</span></label>
                         <input type="text" name="price" placeholder="每小时的出租价格" />
                  </div>
-                 <div class="am-form-group">
+                 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>出租时间限制<span class="require">*</span></label>
                         <input type="text" name="timeLimit" placeholder="出租时间限制" />
                  </div>
-                 <div class="am-form-group">
+                 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>车的种类<span class="require">*</span></label>
                         <input type="text" name="type" placeholder="车的种类" />
                  </div>

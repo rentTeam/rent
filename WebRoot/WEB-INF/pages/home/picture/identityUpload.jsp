@@ -1,19 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <title>身份证图片上传</title>
-
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" href="public/assets/css/amazeui.min.css"/>
-    <link rel="stylesheet" href="public/assets/css/amazeui.css"/>
-    <link rel="stylesheet" href="public/assets/css/app.css"/>
-	<script type="text/javascript" src="public/assets/js/jquery.min.js"></script>
+<!-- 头部 -->
+ <%@include file="/WEB-INF/pages/admin/header-tpl.jsp" %>
 	<style>
     		.header {
       			text-align: center;
@@ -41,14 +29,24 @@
 		<div class="am-g">
 			<div class="am-u-sm-centered am-u-sm-5">
 				<form class="am-form" id="imgUpload" action="${pageContext.request.contextPath}/home/picture/imgUploadPicture.action" enctype="multipart/form-data" method="post" class="am-form am-margin-top-lg">
-					<div class="am-form-group">
-						<label class="am-fl am-u-sm-3 am-text-left">身份证正面:</label>
-						<input type="file" name="img" id="file1"/>
-						<input type="text" hidden="hidden" name="type" value="identity"/>
+					<div class="am-form-group am-form-file" for="doc-ipt-file-1">
+						<label class="am-fl am-u-sm-4 am-text-left">身份证正面:</label>
+						<div>
+        					<button type="button" class="am-btn am-btn-default am-btn-sm">
+          					<i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+      					</div>
+						<input type="file" name="img" id="doc-ipt-file-1"/>
+						<div hidden="hidden">
+							<input type="text" name="type" value="identity">
+						</div>
 					</div>
-					<div class="am-form-group">
-						<label class="am-fl am-u-sm-3 am-text-left">身份证反面:</label>
-						<input type="file" name="img" id="file2"/>
+					<div class="am-form-group am-form-file">
+						<label class="am-fl am-u-sm-4 am-text-left " for="doc-ipt-file-2">身份证反面:</label>
+						<div>
+        					<button type="button" class="am-btn am-btn-default am-btn-sm">
+          					<i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+      					</div>
+						<input type="file" name="img" id="doc-ipt-file-2"/>
 					</div>
 					<div class="am-form-group">
 						<p class="am-form-help am-text-danger user-hide" id="errormsg"><i class="am-icon-info-circle"></i><span></span></p>
@@ -59,17 +57,18 @@
 				<p class="am-center"></p>
 			</div>
 		</div>
-		
+<%--footer 与 java script脚本--%>
+<%@include file="/WEB-INF/pages/admin/script-tpl.jsp" %>	
 		<script type="text/javascript">
             $(function() {
                 var $errormsg = $('#errormsg');
                 $('#fileUpload').submit(function() {
             
-                    if ( $('#file1').val() == "" ) {
+                    if ( $('#doc-ipt-file-1').val() == "" ) {
                         showError("请选择要上传的图片");
                         return false;
                     }
-                    if ( $('#file12').val() == "" ) {
+                    if ( $('#doc-ipt-file-2').val() == "" ) {
                         showError("请选择要上传的图片");
                         return false;
                     }
