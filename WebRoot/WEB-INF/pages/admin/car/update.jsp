@@ -9,30 +9,35 @@
     <div class="am-panel-bd">
         <h3>车信息更新</h3>
     </div>
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>车辆信息更新</small></div>
+
+    </div>
     <div class="am-panel-bd">
     	<form class="am-form" id="updateCarForm"  method="post">
     		<div class="am-g">
-    			 <div class="am-form-group">
+    			<input type="hidden" value="<%=request.getParameter("carId") %>" name="carId"/>
+    			 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>车型号<span class="require">*</span></label>
                         <input type="text" name="model" value="${car.model}" placeholder="车型号" />
                  </div>
-                 <div class="am-form-group">
+                 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>展示时的标题<span class="require">*</span></label>
                         <input type="text" name="title" value="${car.title }" placeholder="展示时的标题" />
                  </div>
-                 <div class="am-form-group">
+                 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>每小时的出租价格<span class="require">*</span></label>
                         <input type="text" name="price" value="${car.price }" placeholder="每小时的出租价格" />
                  </div>
-                 <div class="am-form-group">
+                 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>出租时间限制<span class="require">*</span></label>
                         <input type="text" name="timeLimit" value="${car.timeLimit }" placeholder="出租时间限制" />
                  </div>
-                 <div class="am-form-group">
+                 <div class="am-form-group am-u-lg-centered am-u-lg-5">
                         <label>车的种类<span class="require">*</span></label>
                         <input type="text" name="type" value="${car.type }" placeholder="车的种类" />
                  </div>
-                 <div class="am-margin-top-sm am-text-center">
+                 <div class="am-margin-top-sm am-text-center am-u-lg-centered am-u-lg-5">
                         <p class="am-form-help" id="msgStatus"></p>
                         <button type="submit" class="am-btn am-btn-primary am-margin-right-sm" id="addCar">更新</button>
                     </div>
@@ -45,7 +50,7 @@
 <%@include file="/WEB-INF/pages/admin/script-tpl.jsp" %>
 <script type="text/javascript">
 $(function(){
-	 var msgStatus=$("#msgStatus");
+	 var msgStas=$("#msgStatus");
 	 
 	 $('#updateCarForm').validate({
                 rules: {
@@ -65,7 +70,7 @@ $(function(){
                 submitHandler: function() {
                     
                     $.ajax({
-                        url: "${pageContext.request.contextPath}/admin/car/updatedCar.action",
+                        url: "${pageContext.request.contextPath}/admin/car/updateCar.action",
                         data: $("#updateCarForm").serialize(),
                         dataType: "json",
                         type: "POST"

@@ -40,6 +40,8 @@
 	</package>
 	
 	<!-- 图片Action -->
+	<!--能上传的文件的最大字节,现在为10M,即1024*1024*10-->
+	<constant name="struts.multipart.maxSize" value="10240000"></constant>
 	<package name="pictureAdmin" namespace="/admin/picture" extends="struts-default,json-default">
 		<action name="*Picture" class="com.rent.web.action.admin.PictureAction" method="{1}">
 			<!--json 数据-->
@@ -51,9 +53,16 @@
             <!--跳到管理员图片上传页面 -->
             <result name="intoUpload2">/WEB-INF/pages/admin/picture/managerImg.jsp</result>
             <!-- 跳到车图片更改页 -->
-            <result name="intoModify">/WEB-INF/pages/admin/picture/managerImg.jsp</result>
+            <result name="intoModify">/WEB-INF/pages/admin/picture/carImg.jsp</result>
             <!-- 查看用户的图片 -->
             <result name="queryUser">/WEB-INF/pages/admin/picture/lookUserImg.jsp</result>
+            <!-- success -->
+            <result name="success">/WEB-INF/pages/admin/success.jsp</result>
+            <interceptor-ref name="fileUpload">
+            	<param name="maximumSize">10240000</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="input">/WEB-INF/pages/admin/picture/carImg.jsp</result>
 		</action>
 	</package>
 	

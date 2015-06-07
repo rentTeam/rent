@@ -13,6 +13,8 @@
         	height:90px;
     	}
 	</style>
+</head>
+<body>
     <div class="am-panel-bd">
 
         <h3>车辆信息展示</h3>
@@ -43,7 +45,7 @@
             				</td>
             				<td><s:property value="#id.carId"/></td>
             				<td><s:property value="#id.title"/></td>
-            				<td><img class="imgStyle" src="carPicture/${plist[loop.index].fileFileName}"></td>
+            				<td><img class="imgStyle" src="${pageContext.request.contextPath }/${url[loop.index] }"></td>
             				<td><s:property value="#id.price"/></td>
             				<td><s:property value="#id.timeLimit"/></td>
             				<td><s:property value="#id.type"/></td>
@@ -52,10 +54,10 @@
                             		<button class="am-btn am-btn-primary am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle>操作 <span class="am-icon-caret-down"></span>
                             		</button>
                             		<ul class="am-dropdown-content">
-                                		<li><a href="${pageContext.request.contextPath}/admin/car/intoUpdateCar.action?id=<s:property value="#id.carId"/>">修改车辆信息</a></li>
+                                		<li><a href="${pageContext.request.contextPath}/admin/car/intoUpdateCar.action?carId=<s:property value="#id.carId"/>">修改车辆信息</a></li>
                                 		<li><a href="${pageContext.request.contextPath}/admin/picture/intoUploadPicture.action?carId=<s:property value="#id.carId"/>">上传图片</a></li>
                                 		<li><a href="${pageContext.request.contextPath}/admin/picture/intoModifyPicture.action?carId=<s:property value="#id.carId"/>">更改图片</a></li>
-                                		<li><a class="deleteCar" href="${pageContext.request.contextPath}/admin/car/deleteCar.action?id=<s:property value="#id.carId"/>">删除</a></li>
+                                		<li><a class="deleteCar" href="${pageContext.request.contextPath}/admin/car/deleteCar.action?carId=<s:property value="#id.carId"/>">删除</a></li>
                             		</ul>
                         		</div>
                     		</td>

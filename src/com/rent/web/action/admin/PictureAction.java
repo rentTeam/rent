@@ -1,5 +1,9 @@
 package com.rent.web.action.admin;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,6 +18,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
@@ -111,11 +116,16 @@ public class PictureAction extends BaseAction<Picture> implements SessionAware{
 	 * @return
 	 */
 	public String intoModify(){
-		String hql="from Picture where id is in("
-				+ "select pictureId form PictureCar where carId=?)";
-		List<Picture> pictures=pictureService.findListByHql(hql, request.getParameter("carId"));
-		for(Picture p:pictures){
-			pictureService.delete(p);
+		String hql="from PictureCar where  carId_carId=?";
+		List<PictureCar> pictures=pictureCarService.findListByHql(hql, request.getParameter("carId"));
+		for(PictureCar p:pictures){
+			File file=new File(p.getPictureId().getUrl());     
+			file.delete();
+			pictureCarService.delete(p);
+			Picture ps=pictureService.getEntity(Picture.class, p.getPictureId().getId());
+			if(null!=ps)
+				pictureService.delete(ps);
+			
 		}
 		return "intoModify";
 	}
@@ -123,6 +133,8 @@ public class PictureAction extends BaseAction<Picture> implements SessionAware{
 	 * 管理员图片上传页面
 	 * @return
 	 */
+	
+	
 	public String intoUpload2(){
 		return "intoUpload2";
 	}
@@ -140,9 +152,11 @@ public class PictureAction extends BaseAction<Picture> implements SessionAware{
             Car car=carService.getEntity(Car.class, request.getParameter("carId"));
             if(!saveFile.exists())
                 saveFile.mkdirs();
+            File[] img=this.getImg();
+            String name[]=this.getImgFileName();
             for(int i=0;i<img.length;i++){
             	//文件重命名 用UUID
-                String extension01=img[i].getName().replace(img[i].getName().substring(0,img[i].getName().lastIndexOf(".")),UUID.randomUUID().toString());
+                String extension01=name[i].replace(name[i].substring(0,name[i].lastIndexOf(".")),UUID.randomUUID().toString());
                 //;
                 outputStream=new FileOutputStream(reqlpath+"/"+extension01);
                 byte[] bs=new byte[1024];
@@ -156,14 +170,32 @@ public class PictureAction extends BaseAction<Picture> implements SessionAware{
                 picture.setUrl(reqlpath+"\\"+extension01);
                 pictureService.save(picture);
                 PictureCar pictureCar=new PictureCar();
-                pictureCar.setCarId(car);
-                pictureCar.setPictureId(picture);
-                pictureCarService.save(pictureCar);
+                if(null==pictureCar.getCarId()){//判断是更新还是插入
+                	pictureCar.setCarId(car);
+                	pictureCar.setPictureId(picture);
+                    pictureCarService.save(pictureCar);
+                }else{
+                	pictureCar.setPictureId(picture);
+                	pictureCarService.update(pictureCar);
+                } 	
+              
             }  
-            inputStream.close();
-            outputStream.close();
+            
 		}catch(IOException e){
 			e.printStackTrace();
+		}finally{
+			try {
+				inputStream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				outputStream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return "success";
 	}

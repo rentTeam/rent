@@ -20,9 +20,9 @@
 			<div class="am-u-sm-12 am-u-md-6 am-u-lg-4 am-u-sm-centered">
 				<form  id="fileUpload" action="${pageContext.request.contextPath}/admin/picture/imgUploadPicture.action" enctype="multipart/form-data" method="post" class="am-form am-margin-top-lg">
 					<fieldset>
-                        <input type="hidden" value="${carId}" name="carId"/>
-                        <div class="am-form-group" style="display: none">
-							   <input hidden="hidden" type="text" value="car" name="type"/>
+                        <input type="text" value="<%=request.getParameter("carId") %>" name="carId"/>
+                        <div class="am-form-group">
+							   <input type="hidden"  value="car" name="type"/>
                         </div>
 						<div class="am-form-group">
 							<label class="am-sr-only">图片<span class="require">*</span></label>
@@ -58,6 +58,7 @@
 
                 function  showError(msg) {
                     $errormsg.show();
+                    alert(""+$("input[name='carId']").val());
                     $errormsg.find('span').html(msg);
                 }
             });

@@ -83,18 +83,15 @@ $(function(){
                         dataType: "json",
                         type: "POST"
                     }).success(function(data) {
-                    alert("start");
                         if ( data ) {
                             if ( data.status == "ok" ) {
                                 msgStas.html('<span class="am-text-success">' + data.message + '</span>');
-                     			alert("a");
                                 window.location.href="${pageContext.request.contextPath}/admin/car/queryCar.action";
                             }else{
                                 msgDesc.html('<span class="am-text-danger">' + data.message + '</span>');
-                                alert("b");
+    
                             }
                         } else {
-                        alert("c");
                             msgStas.html('<span class="am-text-danger">网络异常</span>');
                         }
                     }).fail(function() {

@@ -14,7 +14,9 @@ import org.springframework.stereotype.Controller;
 
 import com.rent.domin.Car;
 import com.rent.domin.Picture;
+import com.rent.domin.PictureCar;
 import com.rent.service.CarService;
+import com.rent.service.PictureCarService;
 import com.rent.service.PictureService;
 import com.rent.web.action.BaseAction;
 
@@ -28,6 +30,9 @@ public class CarAction extends BaseAction<Car> implements SessionAware{
 	
 	@Resource
 	private PictureService pictureService;
+	
+	@Resource
+	private PictureCarService pictureCarService;
 	
 	//ajax json数据变量
 	private Map<String, Object> jsonData;
@@ -70,8 +75,8 @@ public class CarAction extends BaseAction<Car> implements SessionAware{
 	 * @return
 	 */
 	public String query(){
-		List<Picture> plist=new ArrayList<Picture>();
-		List<Picture> plists=new ArrayList<Picture>();
+		List<PictureCar> plist=new ArrayList<PictureCar>();
+		List<String> url=new ArrayList<String>();
 		List<Car> clist=new ArrayList<Car>();
 		String s=request.getParameter("start");
 		String l=request.getParameter("limit");
@@ -81,15 +86,14 @@ public class CarAction extends BaseAction<Car> implements SessionAware{
 		if(null!=s)start=Integer.parseInt(s);
 		if(null!=l)limit=Integer.parseInt(l);
 		clist=carService.queryForPages("from Car as car", params, start, limit);
-		/*String hql="from Picture where type='car' and id="
-				+ "(secect pictureId from pictureCar where carId=?)";
+		String hql="from PictureCar where carId_carId=?";
 		for(Car car:clist){
-			plist=pictureService.findListByHql(hql, car.getCarId());
+			plist=pictureCarService.findListByHql(hql, car.getCarId());
 			if(!plist.isEmpty())
-				plists.add(plist.get(0));
-		}*/
+				url.add("carPicture/"+plist.get(0).getPictureId().getFileFileName());
+		}
 		request.setAttribute("clist", clist);
-		//request.setAttribute("plists", plists);
+		request.setAttribute("url", url);
 		return "query";
 	}
 	
@@ -122,19 +126,23 @@ public class CarAction extends BaseAction<Car> implements SessionAware{
 	 * @return
 	 */
 	public String delete(){
-		String carId=request.getParameter("carId");
+		String carId=model.getCarId();
+		System.out.println("id->"+carId);
 		Car car=carService.getEntity(Car.class, carId);
-		List<Picture> plist=new ArrayList<Picture>();
-		String hql="from Picture where id is in("
-				+ "select pictureId from PictureCar where carId=?";
-		plist=pictureService.findListByHql(hql, carId);
-		if(carService.delete(car)){
-			for(Picture p:plist){
-				String url=p.getUrl();
-				pictureService.delete(p);
-				File file =new File(url);
+		List<PictureCar> plist=new ArrayList<PictureCar>();
+		String hql="from PictureCar where carId_carId=?";
+		plist=pictureCarService.findListByHql(hql, carId);
+		if(car!=null){
+			for(PictureCar p:plist){
+				String url=p.getPictureId().getUrl();
+				File file=new File(url);
 				file.delete();
+				pictureCarService.delete(p);
+				Picture picture=pictureService.getEntity(Picture.class, p.getPictureId().getId());
+				if(null!=picture)
+					pictureService.delete(picture);
 			}
+			carService.delete(car);
 			ajaxReturn("ok", "成功删除", "ok");
 			return "jsonReturn";
 		}else{

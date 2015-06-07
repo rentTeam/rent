@@ -18,7 +18,7 @@ public class PictureCar implements Serializable{
 	private Car carId;
 	
 	@Id
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="pictureId")
 	public Picture getPictureId() {
 		return pictureId;
@@ -27,7 +27,7 @@ public class PictureCar implements Serializable{
 		this.pictureId = pictureId;
 	}
 	@Id
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.REMOVE)
 	public Car getCarId() {
 		return carId;
 	}
